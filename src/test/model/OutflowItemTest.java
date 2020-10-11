@@ -1,5 +1,24 @@
 package model;
 
-class OutflowItemTest {
-    // delete or rename this class!
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+// Unit tests for OutflowItem class
+class OutflowItemTest extends ListItemTest {
+
+    @BeforeEach
+    public void runBefore() {
+        listItem = new OutflowItem(AMOUNT, DATE);
+    }
+
+    @Test
+    public void testSetCategories() {
+        super.testSetCategories(OutflowItem.categories);
+    }
+
+    @Test
+    public void testCompareTo() {
+        super.testCompareTo(new OutflowItem(AMOUNT, DATE));
+    }
+
 }
