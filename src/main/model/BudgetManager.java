@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BudgetManager {
@@ -44,6 +45,7 @@ public class BudgetManager {
 
     public void addItem(ListItem item) {
         cashFlowList.add(item);
+        Collections.sort(cashFlowList);
     }
 
     public void removeItem(int index) {
@@ -53,5 +55,7 @@ public class BudgetManager {
     public void editItem(int index, ListItem item) {
         removeItem(index);
         addItem(item);
+        Collections.sort(cashFlowList);
     }
+
 }

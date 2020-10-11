@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class OutflowItem extends ListItem {
 
-    private static final ArrayList<String> categories = (ArrayList<String>) Arrays.asList("uncategorized", "paycheck",
-            "bonus", "investment");
+    public static ArrayList<String> categories = new ArrayList<>(Arrays.asList("uncategorized", "paycheck",
+            "bonus", "investment"));
 
     public OutflowItem(double amount, LocalDate date) {
         this(amount, date, "uncategorized");
@@ -17,18 +17,4 @@ public class OutflowItem extends ListItem {
         super(amount, date, category);
     }
 
-    @Override
-    public ArrayList<String> getCategories() {
-        return categories;
-    }
-
-    @Override
-    public void addCategory(String category) {
-        categories.add(category);
-    }
-
-    @Override
-    public boolean removeCategory(String category) {
-        return categories.remove(category);
-    }
 }

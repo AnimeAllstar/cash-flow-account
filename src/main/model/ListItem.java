@@ -9,21 +9,11 @@ public abstract class ListItem implements Comparable<ListItem> {
     private LocalDate date;
     private String category;
 
-    public ListItem(double amount, LocalDate date) {
-        this(amount, date, "uncategorized");
-    }
-
     public ListItem(double amount, LocalDate date, String category) {
         this.amount = amount;
         this.date = date;
         this.category = category.toLowerCase();
     }
-
-    public abstract ArrayList<String> getCategories();
-
-    public abstract void addCategory(String category);
-
-    public abstract boolean removeCategory(String category);
 
     public int compareTo(ListItem o) {
         if (this.date.compareTo(o.date) != 0) {
@@ -31,8 +21,10 @@ public abstract class ListItem implements Comparable<ListItem> {
         } else {
             if (this.amount - o.amount > 0) {
                 return 1;
-            } else {
+            } else if (this.amount - o.amount < 0) {
                 return -1;
+            } else {
+                return 0;
             }
         }
     }
@@ -57,7 +49,13 @@ public abstract class ListItem implements Comparable<ListItem> {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public boolean setCategory(String category, ArrayList<String> categories) {
+        if (categories.contains(category)) {
+            this.category = category;
+            return true;
+        } else {
+            return false;
+        }
     }
+
 }
