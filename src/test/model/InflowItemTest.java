@@ -1,5 +1,5 @@
 package model;
 
-public class MyModel {
+class InflowItemTest {
     // delete or rename this class!
 }
