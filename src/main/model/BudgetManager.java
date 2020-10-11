@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class BudgetManager {
-    List<ListItem> cashFlowList = new ArrayList<>();
+    private final List<ListItem> cashFlowList = new ArrayList<>();
     private double budget;
     private double balance;
     private double warning;
@@ -41,6 +41,10 @@ public class BudgetManager {
 
     public void setWarning(double warning) {
         this.warning = warning;
+    }
+
+    public List<ListItem> getCashFlowList() {
+        return cashFlowList;
     }
 
     public void addItem(ListItem item) {

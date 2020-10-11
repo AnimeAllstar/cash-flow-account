@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class InflowItem extends ListItem {
 
-    public static ArrayList<String> categories = new ArrayList<>(Arrays.asList("uncategorized",
-            "entertainment", "education", "shopping", "food and dining", "healthcare", "bills", "transport", "travel"));
+    public static ArrayList<String> categories = new ArrayList<>(Arrays.asList("uncategorized", "entertainment",
+            "education", "shopping", "food and dining", "healthcare", "bills", "transport", "travel"));
 
     public InflowItem(double amount, LocalDate date) {
         this(amount, date, "uncategorized");
