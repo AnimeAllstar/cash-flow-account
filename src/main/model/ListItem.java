@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 public abstract class ListItem implements Comparable<ListItem> {
 
+    private String label;
     private double amount;
     private LocalDate date;
     private String category;
 
-    public ListItem(double amount, LocalDate date, String category) {
+    public ListItem(String label, double amount, LocalDate date, String category) {
+        this.label = label;
         this.amount = amount;
         this.date = date;
         this.category = category.toLowerCase();
@@ -28,6 +30,8 @@ public abstract class ListItem implements Comparable<ListItem> {
             }
         }
     }
+
+    public abstract String getClassName();
 
     public double getAmount() {
         return amount;
@@ -49,13 +53,25 @@ public abstract class ListItem implements Comparable<ListItem> {
         return category;
     }
 
-    public boolean setCategory(String category, ArrayList<String> categories) {
-        if (categories.contains(category)) {
-            this.category = category;
+    public boolean setCategory(int index, ArrayList<String> categories) {
+        if (index >= 0 && categories.size() > index) {
+            this.category = categories.get(index);
             return true;
         } else {
             return false;
         }
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-15s%-13.2f%-15s%-15s", label, amount, date.toString(), category);
+    }
 }

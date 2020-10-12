@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class ListItemTest {
     protected static final LocalDate DATE = LocalDate.of(2020, Month.OCTOBER, 1);
     protected static final double AMOUNT = 150.65;
+    protected static final String LABEL = "testItem";
     protected ListItem listItem;
 
     @Test
@@ -39,7 +40,7 @@ public abstract class ListItemTest {
 
     public void testSetCategories(ArrayList<String> categories) {
         assertEquals("uncategorized", listItem.getCategory());
-        assertFalse(listItem.setCategory("Invalid", categories));
-        assertTrue(listItem.setCategory(categories.get(categories.size() - 1), categories));
+        assertFalse(listItem.setCategory(-1, categories));
+        assertTrue(listItem.setCategory(0, categories));
     }
 }

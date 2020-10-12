@@ -47,6 +47,16 @@ public class BudgetManager {
         return cashFlowList;
     }
 
+    public List<ListItem> getCashFlowList(String filterBy) {
+        ArrayList<ListItem> tempList = new ArrayList<>();
+        for (ListItem elem : cashFlowList) {
+            if (elem.getClassName().equals(filterBy)) {
+                tempList.add(elem);
+            }
+        }
+        return tempList;
+    }
+
     public void addItem(ListItem item) {
         cashFlowList.add(item);
         Collections.sort(cashFlowList);

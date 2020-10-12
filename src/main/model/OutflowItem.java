@@ -9,12 +9,21 @@ public class OutflowItem extends ListItem {
     public static ArrayList<String> categories = new ArrayList<>(Arrays.asList("uncategorized", "paycheck",
             "bonus", "investment"));
 
-    public OutflowItem(double amount, LocalDate date) {
-        this(amount, date, "uncategorized");
+    public OutflowItem() {
+        this("label", 0, LocalDate.now(), "uncategorized");
     }
 
-    public OutflowItem(double amount, LocalDate date, String category) {
-        super(amount, date, category);
+    public OutflowItem(String label, double amount, LocalDate date) {
+        this(label, amount, date, "uncategorized");
+    }
+
+    public OutflowItem(String label, double amount, LocalDate date, String category) {
+        super(label, amount, date, category);
+    }
+
+    @Override
+    public String getClassName() {
+        return "OutflowItem";
     }
 
 }

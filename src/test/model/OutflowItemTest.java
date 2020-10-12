@@ -8,7 +8,7 @@ class OutflowItemTest extends ListItemTest {
 
     @BeforeEach
     public void runBefore() {
-        listItem = new OutflowItem(AMOUNT, DATE);
+        listItem = new OutflowItem(LABEL, AMOUNT, DATE);
     }
 
     @Test
@@ -18,7 +18,7 @@ class OutflowItemTest extends ListItemTest {
 
     @Test
     public void testCompareTo() {
-        super.testCompareTo(new OutflowItem(AMOUNT, DATE));
+        super.testCompareTo(new OutflowItem(LABEL, AMOUNT, DATE));
     }
 
 }

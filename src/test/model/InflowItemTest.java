@@ -8,7 +8,7 @@ class InflowItemTest extends ListItemTest {
 
     @BeforeEach
     public void runBefore() {
-        listItem = new InflowItem(AMOUNT, DATE);
+        listItem = new InflowItem(LABEL, AMOUNT, DATE);
     }
 
     @Test
@@ -18,7 +18,7 @@ class InflowItemTest extends ListItemTest {
 
     @Test
     public void testCompareTo() {
-        super.testCompareTo(new InflowItem(AMOUNT, DATE));
+        super.testCompareTo(new InflowItem(LABEL, AMOUNT, DATE));
     }
 
 }
