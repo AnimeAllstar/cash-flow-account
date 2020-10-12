@@ -6,19 +6,28 @@ import model.IncomeItem;
 import model.Item;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// represents a Console-based User Interface
 public class ConsoleUI {
 
-    private CashFlowAccount cashFlowAccount;
-    private Scanner sc;
+    //ANSI escape codes used to improve user experience by adding colours where appropriate
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
+    private CashFlowAccount cashFlowAccount;
+    private Scanner sc;
 
+    // EFFECTS: runs the ConsoleUI
     public ConsoleUI() {
+        runConsole();
+    }
+
+    // adapted from TellerApp
+    // MODIFIES: this
+    // EFFECTS: accepts user input
+    public void runConsole() {
         boolean isExit = false;
         String choice;
 
@@ -41,13 +50,23 @@ public class ConsoleUI {
         System.out.println("\nSee you soon!");
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes global variables
+    private void initializeGlobal() {
+        cashFlowAccount = new CashFlowAccount();
+        sc = new Scanner(System.in);
+    }
+
+    // EFFECTS: displays a list of possible commands to the user
     private void displayMenu() {
-        System.out.println("| Display | (d) All Items | (d.in) Income Items | (d.exp) Expense Items |");
-        System.out.println("| Add | (in) Income Item | (exp) Expense Item |");
+        System.out.println("| (d) Display All Items | (d.in) Display Income Items | (d.exp) Display Expense Items |");
+        System.out.println("| (in) Add Income Item | (exp) Add Expense Item |");
         System.out.print("| (r) Remove | (m) Display Menu | (exit) Exit |\n");
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: processes user input
     @SuppressWarnings("checkstyle:MethodLength")
     private void select(String choice) {
         switch (choice) {
@@ -87,6 +106,14 @@ public class ConsoleUI {
         displayRecords("");
     }
 
+    /*
+     * REQUIRES: filterBy is equal to either "" or "ExpenseItem" or "IncomeItem"
+     * EFFECTS: if filterBy is equal to ""
+     *            - records =  all elements in cashFlowAccount.itemList
+     *          else
+     *            - records = elements of either "ExpenseItem" or "IncomeItem"
+     *          print every element in records
+     */
     private void displayRecords(String filterBy) {
         ArrayList<Item> records;
         if (filterBy.equals("")) {
@@ -102,6 +129,9 @@ public class ConsoleUI {
         }
     }
 
+    // REQUIRES: newItem cannot be null
+    // MODIFIES: this
+    // EFFECTS: accepts user input for new Item
     private void addRecord(Item newItem) {
         System.out.print("Enter Label : ");
         sc.nextLine();
@@ -116,6 +146,11 @@ public class ConsoleUI {
         cashFlowAccount.addItem(newItem);
     }
 
+    // REQUIRES: className must be "ExpenseItem" or "IncomeItem"
+    // EFFECTS: initializes the local variable categories to the categories ArrayList in
+    //          either the ExpenseItem or IncomeItem class (depending on className)
+    //          prints every element in categories
+    //          returns categories
     private ArrayList<String> printCategories(String className) {
         ArrayList<String> categories;
         if (className.equals("IncomeItem")) {
@@ -132,6 +167,10 @@ public class ConsoleUI {
         return categories;
     }
 
+    // REQUIRES: item is not null
+    //           categories is not null
+    // EFFECTS: Contains a while loop to ensure that the user enters an index
+    //          within the bounds of the categories ArrayList
     private void setIndex(Item item, int index, ArrayList<String> categories) {
         while (!item.setCategory(index - 1, categories)) {
             System.out.println(ANSI_RED + "Invalid index. Please try again" + ANSI_RESET);
@@ -144,6 +183,8 @@ public class ConsoleUI {
         cashFlowAccount.removeItem(item);
     }
 
+    // EFFECTS: displays all records using this.displayRecords()
+    //          returns the Item at the index inputted by the user
     private Item getRecord() {
         displayRecords();
         boolean isValid = false;
@@ -159,6 +200,11 @@ public class ConsoleUI {
         return item;
     }
 
+    // REQUIRES: item is not null
+    // MODIFIES: this
+    // EFFECTS: displays details of item
+    //          removes item from the itemList using this.removeRecord(item)
+    //          adds a new item to the itemList using this.addRecord(item)
     private void editRecord(Item item) {
         System.out.println("Selected Row: " + item.toString());
         removeRecord(item);
@@ -166,18 +212,4 @@ public class ConsoleUI {
         System.out.println(ANSI_BLUE + "Record Edited!" + ANSI_RESET);
     }
 
-    private void initializeGlobal() {
-        cashFlowAccount = new CashFlowAccount();
-        sc = new Scanner(System.in);
-
-        // Sample Data
-        cashFlowAccount.addItem(new ExpenseItem("Item 1", 100, LocalDate.now(), "uncategorized"));
-        cashFlowAccount.addItem(new IncomeItem("Item 2", 200, LocalDate.now(), "uncategorized"));
-        cashFlowAccount.addItem(new ExpenseItem("Item 3", 300, LocalDate.now(), "uncategorized"));
-        cashFlowAccount.addItem(new IncomeItem("Item 4", 10, LocalDate.now(), "uncategorized"));
-        cashFlowAccount.addItem(new ExpenseItem("Item 5", 100, LocalDate.of(2020, Month.OCTOBER,
-                20), "uncategorized"));
-        cashFlowAccount.addItem(new IncomeItem("Item 6", 100, LocalDate.of(2020, Month.OCTOBER,
-                1), "uncategorized"));
-    }
 }
