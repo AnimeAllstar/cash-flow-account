@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class IncomeItem extends ListItem {
+public class IncomeItem extends Item {
 
     public static ArrayList<String> categories = new ArrayList<>(Arrays.asList("uncategorized", "entertainment",
             "education", "shopping", "food and dining", "healthcare", "bills", "transport", "travel"));

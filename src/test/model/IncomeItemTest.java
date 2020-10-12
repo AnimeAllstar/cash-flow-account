@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Unit tests for IncomeItem class
-class IncomeItemTest extends ListItemTest {
+class IncomeItemTest extends ItemTest {
 
     @BeforeEach
     public void runBefore() {
-        listItem = new IncomeItem(LABEL, AMOUNT, DATE);
+        item = new IncomeItem(LABEL, AMOUNT, DATE);
     }
 
     @Test

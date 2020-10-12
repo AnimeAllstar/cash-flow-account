@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Account {
-    private final List<ListItem> cashFlowList = new ArrayList<>();
+    private final List<Item> cashFlowList = new ArrayList<>();
     private double goal;
 
     public Account(double goal) {
@@ -20,13 +20,13 @@ public class Account {
         this.goal = goal;
     }
 
-    public List<ListItem> getCashFlowList() {
+    public List<Item> getCashFlowList() {
         return cashFlowList;
     }
 
-    public List<ListItem> getCashFlowList(String filterBy) {
-        ArrayList<ListItem> tempList = new ArrayList<>();
-        for (ListItem elem : cashFlowList) {
+    public List<Item> getCashFlowList(String filterBy) {
+        ArrayList<Item> tempList = new ArrayList<>();
+        for (Item elem : cashFlowList) {
             if (elem.getClassName().equals(filterBy)) {
                 tempList.add(elem);
             }
@@ -34,7 +34,7 @@ public class Account {
         return tempList;
     }
 
-    public void addItem(ListItem item) {
+    public void addItem(Item item) {
         cashFlowList.add(item);
         Collections.sort(cashFlowList);
     }

@@ -3,7 +3,7 @@ package ui;
 import model.Account;
 import model.ExpenseItem;
 import model.IncomeItem;
-import model.ListItem;
+import model.Item;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -77,7 +77,7 @@ public class ConsoleUI {
     }
 
     private void displayRecords(String filterBy) {
-        ArrayList<ListItem> records;
+        ArrayList<Item> records;
         if (filterBy.equals("")) {
             records = new ArrayList<>(account.getCashFlowList());
         } else {
@@ -85,13 +85,13 @@ public class ConsoleUI {
         }
 
         int count = 1;
-        for (ListItem elem : records) {
+        for (Item elem : records) {
             System.out.println("[" + count + "] " + elem.toString());
             count++;
         }
     }
 
-    private void addRecord(ListItem newItem) {
+    private void addRecord(Item newItem) {
         System.out.print("Add Label : ");
         newItem.setLabel(sc.next());
         System.out.print("Add Amount : $ ");
@@ -121,8 +121,8 @@ public class ConsoleUI {
         return categories;
     }
 
-    private void setIndex(ListItem listItem, int index, ArrayList<String> categories) {
-        while (!listItem.setCategory(index - 1, categories)) {
+    private void setIndex(Item item, int index, ArrayList<String> categories) {
+        while (!item.setCategory(index - 1, categories)) {
             System.out.println(ANSI_RED + "Invalid index. Please try again" + ANSI_RESET);
             System.out.print("Add Category (use number) : ");
             index = sc.nextInt();

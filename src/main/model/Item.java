@@ -3,21 +3,21 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class ListItem implements Comparable<ListItem> {
+public abstract class Item implements Comparable<Item> {
 
     private String label;
     private double amount;
     private LocalDate date;
     private String category;
 
-    public ListItem(String label, double amount, LocalDate date, String category) {
+    public Item(String label, double amount, LocalDate date, String category) {
         this.label = label;
         this.amount = amount;
         this.date = date;
         this.category = category.toLowerCase();
     }
 
-    public int compareTo(ListItem o) {
+    public int compareTo(Item o) {
         if (this.date.compareTo(o.date) != 0) {
             return -(this.date.compareTo(o.date));
         } else {
