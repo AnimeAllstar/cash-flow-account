@@ -19,12 +19,12 @@ public abstract class ListItem implements Comparable<ListItem> {
 
     public int compareTo(ListItem o) {
         if (this.date.compareTo(o.date) != 0) {
-            return this.date.compareTo(o.date);
+            return -(this.date.compareTo(o.date));
         } else {
             if (this.amount - o.amount > 0) {
-                return 1;
-            } else if (this.amount - o.amount < 0) {
                 return -1;
+            } else if (this.amount - o.amount < 0) {
+                return 1;
             } else {
                 return 0;
             }
@@ -62,16 +62,12 @@ public abstract class ListItem implements Comparable<ListItem> {
         }
     }
 
-    public String getLabel() {
-        return label;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }
 
     @Override
     public String toString() {
-        return String.format("%-15s%-13.2f%-15s%-15s", label, amount, date.toString(), category);
+        return String.format("%-20s $ %-15.2f %-12s %-15s", label, amount, date.toString(), category);
     }
 }
