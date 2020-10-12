@@ -9,6 +9,11 @@ public abstract class Item implements Comparable<Item> {
     private double amount;
     private LocalDate date;
     private String category;
+    protected static final String DEFAULT_CATEGORY = "uncategorized";
+    protected static final LocalDate DEFAULT_DATE = LocalDate.now();
+    protected static final String DEFAULT_LABEL = "New Item";
+    protected static final double DEFAULT_AMOUNT = 0;
+
 
     public Item(String label, double amount, LocalDate date, String category) {
         this.label = label;
@@ -64,6 +69,10 @@ public abstract class Item implements Comparable<Item> {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     @Override

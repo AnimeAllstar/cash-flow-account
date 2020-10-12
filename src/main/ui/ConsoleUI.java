@@ -62,6 +62,7 @@ public class ConsoleUI {
                 break;
             case "in":
                 addRecord(new IncomeItem());
+                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
                 break;
             case "exp":
                 addRecord(new ExpenseItem());
