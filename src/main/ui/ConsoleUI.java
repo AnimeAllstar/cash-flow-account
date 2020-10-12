@@ -1,6 +1,6 @@
 package ui;
 
-import model.Account;
+import model.CashFlowAccount;
 import model.ExpenseItem;
 import model.IncomeItem;
 import model.Item;
@@ -12,10 +12,9 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
-    private Account account;
+    private CashFlowAccount cashFlowAccount;
     private Scanner sc;
     public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
 
@@ -24,7 +23,7 @@ public class ConsoleUI {
         String choice;
 
         initializeGlobal();
-        System.out.println("Welcome to Budget Manager!");
+        System.out.println("Welcome to your Cash Flow Account!");
         System.out.println("Instructions: Enter the value in the parenthesis to run commands");
 
         displayMenu();
@@ -39,34 +38,41 @@ public class ConsoleUI {
                 select(choice);
             }
         }
-        System.out.println("\nThank you for using Budget Manager!");
+        System.out.println("\nSee you soon!");
     }
 
     private void displayMenu() {
-        System.out.println("| Display | (d) All Items | (d.in) Income Items | (d.out) Expense Items |");
-        System.out.println("| Add | (a.in) Income Item | (a.exp) Expense Item |");
-        System.out.print("| (r) Remove | (g) Goals | (m) This Menu | (exit) Exit |\n");
+        System.out.println("| Display | (d) All Items | (d.in) Income Items | (d.exp) Expense Items |");
+        System.out.println("| Add | (in) Income Item | (exp) Expense Item |");
+        System.out.print("| (r) Remove | (m) Display Menu | (exit) Exit |\n");
     }
 
+
+    @SuppressWarnings("checkstyle:MethodLength")
     private void select(String choice) {
         switch (choice) {
             case "d":
-                displayRecords("");
+                displayRecords();
                 break;
             case "d.in":
                 displayRecords("IncomeItem");
                 break;
-            case "d.out":
+            case "d.exp":
                 displayRecords("ExpenseItem");
                 break;
-            case "a.in":
+            case "in":
                 addRecord(new IncomeItem());
                 break;
-            case "a.exp":
+            case "exp":
                 addRecord(new ExpenseItem());
+                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
+                break;
+            case "e":
+                editRecord(getRecord());
                 break;
             case "r":
-                removeRecord();
+                removeRecord(getRecord());
+                System.out.println(ANSI_BLUE + "Record Removed!" + ANSI_RESET);
                 break;
             case "m":
                 displayMenu();
@@ -76,12 +82,16 @@ public class ConsoleUI {
         }
     }
 
+    private void displayRecords() {
+        displayRecords("");
+    }
+
     private void displayRecords(String filterBy) {
         ArrayList<Item> records;
         if (filterBy.equals("")) {
-            records = new ArrayList<>(account.getCashFlowList());
+            records = new ArrayList<>(cashFlowAccount.getItemList());
         } else {
-            records = new ArrayList<>(account.getCashFlowList(filterBy));
+            records = new ArrayList<>(cashFlowAccount.getItemList(filterBy));
         }
 
         int count = 1;
@@ -92,17 +102,17 @@ public class ConsoleUI {
     }
 
     private void addRecord(Item newItem) {
-        System.out.print("Add Label : ");
-        newItem.setLabel(sc.next());
-        System.out.print("Add Amount : $ ");
+        System.out.print("Enter Label : ");
+        sc.nextLine();
+        newItem.setLabel(sc.nextLine());
+        System.out.print("Enter Amount : $ ");
         newItem.setAmount(sc.nextDouble());
-        System.out.print("Add Date (yyyy-mm-dd) : ");
+        System.out.print("Enter Date (yyyy-mm-dd) : ");
         newItem.setDate(LocalDate.parse(sc.next()));
         ArrayList<String> categories = printCategories(newItem.getClassName());
-        System.out.print("Add Category (use number) : ");
+        System.out.print("Enter Category (use number) : ");
         setIndex(newItem, sc.nextInt(), categories);
-        account.addItem(newItem);
-        System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
+        cashFlowAccount.addItem(newItem);
     }
 
     private ArrayList<String> printCategories(String className) {
@@ -129,30 +139,44 @@ public class ConsoleUI {
         }
     }
 
-    private void removeRecord() {
-        displayRecords("");
+    private void removeRecord(Item item) {
+        cashFlowAccount.removeItem(item);
+    }
+
+    private Item getRecord() {
+        displayRecords();
         boolean isValid = false;
-        System.out.print("Enter index of row you wish to remove : ");
+        System.out.print("Enter index of row you wish to edit : ");
         int index = sc.nextInt();
-        while (!account.removeItem(index - 1)) {
+        Item item = cashFlowAccount.getItem(index - 1);
+        while (item == null) {
             System.out.println(ANSI_RED + "Invalid index. Please try again" + ANSI_RESET);
             System.out.print("Enter row index : ");
             index = sc.nextInt();
+            item = cashFlowAccount.getItem(index - 1);
         }
+        return item;
+    }
+
+    private void editRecord(Item item) {
+        System.out.println("Selected Row: " + item.toString());
+        removeRecord(item);
+        addRecord(item);
+        System.out.println(ANSI_BLUE + "Record Edited!" + ANSI_RESET);
     }
 
     private void initializeGlobal() {
-        account = new Account(2000);
+        cashFlowAccount = new CashFlowAccount();
         sc = new Scanner(System.in);
 
         // Sample Data
-        account.addItem(new ExpenseItem("Item 1", 100, LocalDate.now(), "uncategorized"));
-        account.addItem(new IncomeItem("Item 2", 200, LocalDate.now(), "uncategorized"));
-        account.addItem(new ExpenseItem("Item 3", 300, LocalDate.now(), "uncategorized"));
-        account.addItem(new IncomeItem("Item 4", 10, LocalDate.now(), "uncategorized"));
-        account.addItem(new ExpenseItem("Item 5", 100, LocalDate.of(2020, Month.OCTOBER,
+        cashFlowAccount.addItem(new ExpenseItem("Item 1", 100, LocalDate.now(), "uncategorized"));
+        cashFlowAccount.addItem(new IncomeItem("Item 2", 200, LocalDate.now(), "uncategorized"));
+        cashFlowAccount.addItem(new ExpenseItem("Item 3", 300, LocalDate.now(), "uncategorized"));
+        cashFlowAccount.addItem(new IncomeItem("Item 4", 10, LocalDate.now(), "uncategorized"));
+        cashFlowAccount.addItem(new ExpenseItem("Item 5", 100, LocalDate.of(2020, Month.OCTOBER,
                 20), "uncategorized"));
-        account.addItem(new IncomeItem("Item 6", 100, LocalDate.of(2020, Month.OCTOBER,
+        cashFlowAccount.addItem(new IncomeItem("Item 6", 100, LocalDate.of(2020, Month.OCTOBER,
                 1), "uncategorized"));
     }
 }

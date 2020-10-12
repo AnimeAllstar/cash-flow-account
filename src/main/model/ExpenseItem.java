@@ -10,7 +10,7 @@ public class ExpenseItem extends Item {
             "bonus", "investment"));
 
     public ExpenseItem() {
-        this("label", 0, LocalDate.now(), "uncategorized");
+        this("Expense Item", 0, LocalDate.now(), "uncategorized");
     }
 
     public ExpenseItem(String label, double amount, LocalDate date) {

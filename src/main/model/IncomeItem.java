@@ -10,7 +10,7 @@ public class IncomeItem extends Item {
             "education", "shopping", "food and dining", "healthcare", "bills", "transport", "travel"));
 
     public IncomeItem() {
-        this("label", 0, LocalDate.now(), "uncategorized");
+        this("Income Item", 0, LocalDate.now(), "uncategorized");
     }
 
     public IncomeItem(String label, double amount, LocalDate date) {
