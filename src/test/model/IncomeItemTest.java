@@ -10,7 +10,7 @@ class IncomeItemTest extends ItemTest {
 
     @BeforeEach
     public void runBefore() {
-        item = new IncomeItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE);
+        item = new IncomeItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY);
     }
 
     @Test
@@ -20,7 +20,7 @@ class IncomeItemTest extends ItemTest {
 
     @Test
     public void testCompareTo() {
-        super.testCompareTo(new IncomeItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE));
+        super.testCompareTo(new IncomeItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY));
     }
 
     @Test

@@ -17,6 +17,7 @@ class CashFlowAccountTest {
 
     @Test
     public void testGetItemList() {
+
         assertEquals(0, cashFlowAccount.getItemList().size());
         assertEquals(0, cashFlowAccount.getItemList("IncomeItem").size());
         assertEquals(0, cashFlowAccount.getItemList("ExpenseItem").size());

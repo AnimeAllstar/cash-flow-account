@@ -42,11 +42,11 @@ public abstract class ItemTest {
 
         newItem.setAmount(TEST_AMOUNT + 100);
         assertEquals(TEST_AMOUNT + 100, newItem.getAmount());
-        assertEquals(1, item.compareTo(newItem));
+        assertEquals(100, item.compareTo(newItem));
 
         newItem.setAmount(TEST_AMOUNT - 100);
         assertEquals(TEST_AMOUNT - 100, newItem.getAmount());
-        assertEquals(-1, item.compareTo(newItem));
+        assertEquals(-100, item.compareTo(newItem));
 
         newItem.setDate(LocalDate.now());
         assertEquals(LocalDate.now(), newItem.getDate());
