@@ -28,11 +28,10 @@ public class CashFlowAccount {
 
     public boolean removeItem(Item item) {
         try {
-            itemList.remove(item);
+            return itemList.remove(item);
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     public Item getItem(int index) {
