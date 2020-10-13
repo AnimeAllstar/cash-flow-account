@@ -1,6 +1,6 @@
-# Cash Flow Accout
+# Cash Flow Account
 
-## Overwiew 
+## Overview 
 
 **Cash Flow Account** is an application designed to track an individual's expenditures and earnings over time. It does **not** function as a bank account that restricts you from making purchasing that exceed your balance. Instead, the purpose of this application is to help users to understand their spending habits by categorizing their *income* and *expenditure*.
 
