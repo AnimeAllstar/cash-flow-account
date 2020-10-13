@@ -16,6 +16,7 @@ public class ConsoleUI {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
+
     private CashFlowAccount cashFlowAccount;
     private Scanner sc;
 
@@ -59,62 +60,97 @@ public class ConsoleUI {
 
     // EFFECTS: displays a list of possible commands to the user
     private void displayMenu() {
-        System.out.println("| (d) Display All Items | (d.in) Display Income Items | (d.exp) Display Expense Items |");
-        System.out.println("| (in) Add Income Item | (exp) Add Expense Item |");
-        System.out.print("| (r) Remove | (m) Display Menu | (exit) Exit |\n");
+        System.out.print("| (d) Display | (a) Add | (r) Remove | (m) Menu | (exit) Exit |\n");
     }
 
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    @SuppressWarnings("checkstyle:MethodLength")
     private void select(String choice) {
         switch (choice) {
             case "d":
-                displayRecords();
+                displayOptions();
                 break;
-            case "d.in":
-                displayRecords("IncomeItem");
-                break;
-            case "d.exp":
-                displayRecords("ExpenseItem");
-                break;
-            case "in":
-                addRecord(new IncomeItem());
-                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
-                break;
-            case "exp":
-                addRecord(new ExpenseItem());
-                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
+            case "a":
+                addOptions();
                 break;
             case "e":
                 editRecord(getRecord());
                 break;
             case "r":
                 removeRecord(getRecord());
-                System.out.println(ANSI_BLUE + "Record Removed!" + ANSI_RESET);
                 break;
             case "m":
                 displayMenu();
                 break;
             default:
                 System.out.println(ANSI_RED + "Invalid selection" + ANSI_RESET);
+                break;
         }
     }
 
-    private void displayRecords() {
-        displayRecords("");
+    // MODIFIES: this
+    // EFFECTS: sub-menu that lists options related to displaying items
+    private void displayOptions() {
+        System.out.println("| (a) Display All Items | (b) Display Income Items | (c) Display Expense Items |");
+        System.out.print(">>>> ");
+        String choice = sc.next().toLowerCase();
+        switch (choice) {
+            case "a":
+                displayRecords();
+                break;
+            case "b":
+                displayRecords("IncomeItem");
+                break;
+            case "c":
+                displayRecords("ExpenseItem");
+                break;
+            default:
+                System.out.println(ANSI_RED + "Invalid selection" + ANSI_RESET);
+                break;
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sub-menu that lists options related to adding items
+    private void addOptions() {
+        System.out.println("| (a) Add Income Items | (b) Add Expense Items |");
+        System.out.print(">>>> ");
+        String choice = sc.next().toLowerCase();
+        switch (choice) {
+            case "a":
+                addRecord(new IncomeItem());
+                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
+                break;
+            case "b":
+                addRecord(new ExpenseItem());
+                System.out.println(ANSI_BLUE + "Record Added!" + ANSI_RESET);
+                break;
+            default:
+                System.out.println(ANSI_RED + "Invalid selection" + ANSI_RESET);
+                break;
+        }
+
+    }
+
+    private boolean displayRecords() {
+        return displayRecords("");
     }
 
     /*
      * REQUIRES: filterBy is equal to either "" or "ExpenseItem" or "IncomeItem"
      * EFFECTS: if filterBy is equal to ""
-     *            - records =  all elements in cashFlowAccount.itemList
+     *            - records = all elements in cashFlowAccount.itemList
      *          else
      *            - records = elements of either "ExpenseItem" or "IncomeItem"
-     *          print every element in records
+     *          if records.size() != 0
+     *            - print every element in records
+     *            - return true
+     *          else
+     *            - return false
      */
-    private void displayRecords(String filterBy) {
+    private boolean displayRecords(String filterBy) {
         ArrayList<Item> records;
         if (filterBy.equals("")) {
             records = new ArrayList<>(cashFlowAccount.getItemList());
@@ -122,10 +158,16 @@ public class ConsoleUI {
             records = new ArrayList<>(cashFlowAccount.getItemList(filterBy));
         }
 
-        int count = 1;
-        for (Item elem : records) {
-            System.out.println("[" + count + "] " + elem.toString());
-            count++;
+        if (records.size() != 0) {
+            int count = 1;
+            for (Item elem : records) {
+                System.out.println("[" + count + "] " + elem.toString());
+                count++;
+            }
+            return true;
+        } else {
+            System.out.println(ANSI_BLUE + "No records found!" + ANSI_RESET);
+            return false;
         }
     }
 
@@ -179,15 +221,25 @@ public class ConsoleUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: if item is not null
+    //            - remove item from cashFlowAccount
     private void removeRecord(Item item) {
-        cashFlowAccount.removeItem(item);
+        if (item != null) {
+            cashFlowAccount.removeItem(item);
+            System.out.println(ANSI_BLUE + "Record Removed!" + ANSI_RESET);
+        }
     }
 
     // EFFECTS: displays all records using this.displayRecords()
-    //          returns the Item at the index inputted by the user
+    //          if this.displayRecords() is false
+    //            - return null
+    //          else
+    //            - returns the Item at the index inputted by the user
     private Item getRecord() {
-        displayRecords();
-        boolean isValid = false;
+        if (!displayRecords()) {
+            return null;
+        }
         System.out.print("Enter index of row you wish to edit : ");
         int index = sc.nextInt();
         Item item = cashFlowAccount.getItem(index - 1);
@@ -200,16 +252,18 @@ public class ConsoleUI {
         return item;
     }
 
-    // REQUIRES: item is not null
     // MODIFIES: this
-    // EFFECTS: displays details of item
-    //          removes item from the itemList using this.removeRecord(item)
-    //          adds a new item to the itemList using this.addRecord(item)
+    // EFFECTS: if item is not null
+    //            - displays details of item
+    //            - removes item from cashFlowAccount
+    //            - adds a new item to cashFlowAccount
     private void editRecord(Item item) {
-        System.out.println("Selected Row: " + item.toString());
-        removeRecord(item);
-        addRecord(item);
-        System.out.println(ANSI_BLUE + "Record Edited!" + ANSI_RESET);
+        if (item != null) {
+            System.out.println("Selected Row: " + item.toString());
+            cashFlowAccount.removeItem(item);
+            addRecord(item);
+            System.out.println(ANSI_BLUE + "Record Edited!" + ANSI_RESET);
+        }
     }
 
 }
