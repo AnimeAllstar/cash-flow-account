@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Unit tests for Item class
+
 public abstract class ItemTest {
     protected static final LocalDate TEST_DATE = LocalDate.of(2020, Month.OCTOBER, 1);
     protected static final String TEST_DATE_STR = TEST_DATE.toString();
@@ -62,6 +63,7 @@ public abstract class ItemTest {
 
     public void testSetCategories(ArrayList<String> categories) {
         assertEquals(Item.DEFAULT_CATEGORY, item.getCategory());
+        assertFalse(item.setCategory(categories.size() + 1, categories));
         assertFalse(item.setCategory(-1, categories));
         assertTrue(item.setCategory(0, categories));
     }

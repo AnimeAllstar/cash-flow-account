@@ -17,6 +17,7 @@ public class ConsoleUI {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
 
+
     private CashFlowAccount cashFlowAccount;
     private Scanner sc;
 
@@ -115,7 +116,7 @@ public class ConsoleUI {
     // MODIFIES: this
     // EFFECTS: sub-menu that lists options related to adding items
     private void addOptions() {
-        System.out.println("| (a) Add Income Items | (b) Add Expense Items |");
+        System.out.println("| (a) Add Income Item | (b) Add Expense Item |");
         System.out.print(">>>> ");
         String choice = sc.next().toLowerCase();
         switch (choice) {
@@ -145,7 +146,9 @@ public class ConsoleUI {
      *          else
      *            - records = elements of either "ExpenseItem" or "IncomeItem"
      *          if records.size() != 0
-     *            - print every element in records
+     *            - for every element
+     *               - check the className and set colour
+     *               - print the element using colour for visual feedback
      *            - return true
      *          else
      *            - return false
@@ -160,8 +163,14 @@ public class ConsoleUI {
 
         if (records.size() != 0) {
             int count = 1;
+            String colour;
             for (Item elem : records) {
-                System.out.println("[" + count + "] " + elem.toString());
+                if (elem.getClassName().equals("ExpenseItem")) {
+                    colour = ANSI_RED;
+                } else {
+                    colour = ANSI_BLUE;
+                }
+                System.out.println(colour + "[" + count + "] " + ANSI_RESET + elem.toString());
                 count++;
             }
             return true;
