@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +11,7 @@ import java.util.List;
 // represents an account that stores items created by the user
 // into an ArrayList of type Item
 // contains methods that allow the user to access and alter the list
-public class CashFlowAccount {
+public class CashFlowAccount implements Writable {
     private final List<Item> itemList = new ArrayList<>();
 
     public List<Item> getItemList() {
@@ -65,5 +69,23 @@ public class CashFlowAccount {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("items", itemsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns items in CashFlowAccount as a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item elem : itemList) {
+            jsonArray.put(elem.toJson());
+        }
+
+        return jsonArray;
     }
 }

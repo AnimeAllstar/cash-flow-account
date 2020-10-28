@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 // represents an Item having an label, date, category and amount (in dollars)
-public abstract class Item implements Comparable<Item> {
+public abstract class Item implements Comparable<Item>, Writable {
 
     // default values for variables below (used by zero-argument constructors and objects in sub-classes and tests)
     protected static final String DEFAULT_CATEGORY = "uncategorized";
@@ -72,6 +75,10 @@ public abstract class Item implements Comparable<Item> {
         return category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     /*
      * MODIFIES: this
      * EFFECTS: if index is not negative and less than categories.size()
@@ -99,5 +106,16 @@ public abstract class Item implements Comparable<Item> {
     @Override
     public String toString() {
         return String.format("%-20s $ %-15.2f %-12s %-15s", label, amount, date.toString(), category);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", getClassName());
+        json.put("label", getLabel());
+        json.put("amount", getAmount());
+        json.put("date", getDate());
+        json.put("category", getCategory());
+        return json;
     }
 }

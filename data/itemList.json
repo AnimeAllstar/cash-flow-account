@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "date": "2020-10-10",
+      "amount": 2020,
+      "label": "frf",
+      "type": "IncomeItem",
+      "category": "travel"
+    },
+    {
+      "date": "2020-10-10",
+      "amount": 300,
+      "label": "eeef",
+      "type": "IncomeItem",
+      "category": "shopping"
+    },
+    {
+      "date": "2001-10-01",
+      "amount": 202020,
+      "label": "rfr",
+      "type": "IncomeItem",
+      "category": "bills"
+    }
+  ]
+}
