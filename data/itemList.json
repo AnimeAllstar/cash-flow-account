@@ -1,25 +1,32 @@
 {
   "items": [
     {
+      "date": "3000-10-20",
+      "amount": 220,
+      "label": "fiefk",
+      "type": "IncomeItem",
+      "category": "paycheck"
+    },
+    {
       "date": "2020-10-10",
       "amount": 2020,
       "label": "frf",
-      "type": "IncomeItem",
+      "type": "ExpenseItem",
       "category": "travel"
     },
     {
       "date": "2020-10-10",
       "amount": 300,
       "label": "eeef",
-      "type": "IncomeItem",
+      "type": "ExpenseItem",
       "category": "shopping"
     },
     {
-      "date": "2001-10-01",
-      "amount": 202020,
-      "label": "rfr",
+      "date": "2000-10-10",
+      "amount": 2020,
+      "label": "rfrf",
       "type": "IncomeItem",
-      "category": "bills"
+      "category": "investment"
     }
   ]
 }

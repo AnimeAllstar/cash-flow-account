@@ -4,8 +4,8 @@ import model.CashFlowAccount;
 import model.ExpenseItem;
 import model.IncomeItem;
 import model.Item;
-import persistance.JsonReader;
-import persistance.JsonWriter;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class ConsoleUI {
     private void initializeGlobal() {
         jsonWriter = new JsonWriter(JSON_PATH);
         jsonReader = new JsonReader(JSON_PATH);
-        loadData();
+        cashFlowAccount = loadData();
         sc = new Scanner(System.in);
     }
 
@@ -165,6 +165,7 @@ public class ConsoleUI {
      */
     private boolean displayRecords(String filterBy) {
         ArrayList<Item> records;
+
         if (filterBy.equals("")) {
             records = new ArrayList<>(cashFlowAccount.getItemList());
         } else {
@@ -293,19 +294,18 @@ public class ConsoleUI {
         try {
             jsonWriter.write(cashFlowAccount);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_PATH);
+            System.out.println(ANSI_RED + "Unable to write to file: " + JSON_PATH + ANSI_RESET);
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes CashFlowAccount from file
-    private void loadData() {
+    // EFFECTS: returns CashFlowAccount from file
+    private CashFlowAccount loadData() {
         try {
-            cashFlowAccount = jsonReader.read();
+            return jsonReader.read();
         } catch (IOException e) {
-            cashFlowAccount = new CashFlowAccount();
-            System.out.println("Unable to read from file: " + JSON_PATH);
+            System.out.println(ANSI_RED + "Unable to read from file: " + JSON_PATH + ANSI_RESET);
         }
+        return new CashFlowAccount();
     }
-
 }

@@ -1,7 +1,7 @@
 package model;
 
 import org.json.JSONObject;
-import persistance.Writable;
+import persistence.Writable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
