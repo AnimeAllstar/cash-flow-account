@@ -10,7 +10,10 @@ This project personally interested me as I wanted to way to record my expenses a
 
 ## User Stories
 
-- As a user, I want to be able to add an Item to my Account
-- As a user, I want to be able to view a list of the expenses or earnings in my Account
-- As a user, I want to be able to edit an item in my Account
-- As a user, I want to be able to remove an item from my Account
+- As a user, I want to be able to add an item to my account
+- As a user, I want to be able to view a list of the expenses or earnings in my account
+- As a user, I want to be able to edit an item in my account
+- As a user, I want to be able to remove an item from my account
+
+- As a user, I want to be able to save items in my account to a file
+- As a user, I want to be able to load my account items from a file 
