@@ -23,7 +23,7 @@ class JsonWriterTest extends JsonTest {
             CashFlowAccount acc = new CashFlowAccount();
             JsonWriter writer = new JsonWriter("./data\0illegal\fileName.json");
             writer.write(acc);
-            fail("IOException was expected");
+            fail("IOException expected, none thrown");
         } catch (IOException e) {
             // expected
         }
@@ -40,7 +40,7 @@ class JsonWriterTest extends JsonTest {
             acc = reader.read();
             assertEquals(0, acc.getItemList().size());
         } catch (IOException e) {
-            fail("Exception should not have been thrown");
+            fail("Couldn't write to file. IOException Caught, none expected.");
         }
     }
 
@@ -60,7 +60,7 @@ class JsonWriterTest extends JsonTest {
             checkItem("tuition fees", (double) 20000, "2020-02-20", "education", "ExpenseItem", itemList.get(0));
             checkItem("google stocks", (double) 5000, "2015-10-20", "investment", "IncomeItem", itemList.get(1));
         } catch (IOException e) {
-            fail("Exception should not have been thrown");
+            fail("Couldn't write to file. IOException Caught, none expected.");
         }
     }
 }
