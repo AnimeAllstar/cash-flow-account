@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Adapted from JsonSerializationDemo
 public class JsonTest {
     protected void checkItem(String label, Double amount, String date, String category, Item item) {
         assertEquals(label, item.getLabel());

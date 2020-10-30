@@ -1,9 +1,9 @@
 {
   "items": [
     {
-      "date": "3000-10-20",
-      "amount": 220,
-      "label": "fiefk",
+      "date": "3000-10-10",
+      "amount": 2239,
+      "label": "testItem",
       "type": "IncomeItem",
       "category": "paycheck"
     },

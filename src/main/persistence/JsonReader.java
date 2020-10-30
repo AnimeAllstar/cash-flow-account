@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.stream.Stream;
 
 // Represents a reader that reads CashFlowAccount from JSON data stored in file
+// Adapted from JsonSerializationDemo
 public class JsonReader {
     private final String source;
 
@@ -60,7 +61,7 @@ public class JsonReader {
     }
 
     // MODIFIES: acc
-    // EFFECTS: parses item from JSON object and adds it to CashFlowAccount
+    // EFFECTS: parses Item from JSON object and adds it to CashFlowAccount
     private void addItem(CashFlowAccount acc, JSONObject jsonObject) {
         Item item;
         if (jsonObject.getString("type").equals("IncomeItem")) {

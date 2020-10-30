@@ -13,6 +13,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// Unit tests for JsonWriter class
+// Adapted from JsonSerializationDemo
 class JsonWriterTest extends JsonTest {
 
     @Test
@@ -28,7 +30,7 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyCashFlowAccount() {
+    void testWriterEmptyItemList() {
         try {
             CashFlowAccount acc = new CashFlowAccount();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyItemList.json");
@@ -43,7 +45,7 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterNotEmptyCashFlowAccount() {
+    void testWriterNotEmptyItemList() {
         try {
             CashFlowAccount acc = new CashFlowAccount();
             acc.addItem(new ExpenseItem("tuition fees", 20000, LocalDate.parse("2020-02-20"), "education"));

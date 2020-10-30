@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// represents a Console-based User Interface
+// Represents a Console-based User Interface
 public class ConsoleUI {
 
     //ANSI escape codes used to improve user experience by adding colours where appropriate
@@ -194,6 +194,8 @@ public class ConsoleUI {
     // REQUIRES: newItem cannot be null
     // MODIFIES: this
     // EFFECTS: accepts user input for new Item
+    //          adds item to cashFlowAccount
+    //          updates json file
     private void addRecord(Item newItem) {
         System.out.print("Enter Label : ");
         sc.nextLine();
@@ -245,6 +247,7 @@ public class ConsoleUI {
     // MODIFIES: this
     // EFFECTS: if item is not null
     //            - remove item from cashFlowAccount
+    //            - updates json file
     private void removeRecord(Item item) {
         if (item != null) {
             cashFlowAccount.removeItem(item);
@@ -279,6 +282,7 @@ public class ConsoleUI {
     //            - displays details of item
     //            - removes item from cashFlowAccount
     //            - adds a new item to cashFlowAccount
+    //            - updates json file
     private void editRecord(Item item) {
         if (item != null) {
             System.out.println("Selected Row: " + item.toString());
@@ -289,7 +293,7 @@ public class ConsoleUI {
         }
     }
 
-    // EFFECTS: saves the CashFlowAccount to file
+    // EFFECTS: saves the CashFlowAccount to the file
     private void updateData() {
         try {
             jsonWriter.write(cashFlowAccount);
@@ -299,7 +303,7 @@ public class ConsoleUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: returns CashFlowAccount from file
+    // EFFECTS: loads the CashFlowAccount from the file
     private CashFlowAccount loadData() {
         try {
             return jsonReader.read();
