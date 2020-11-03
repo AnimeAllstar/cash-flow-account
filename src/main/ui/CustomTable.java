@@ -3,6 +3,7 @@ package ui;
 import model.Item;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CustomTable extends AbstractTableModel {
@@ -12,6 +13,7 @@ public class CustomTable extends AbstractTableModel {
 
     public CustomTable(List<Item> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -28,6 +30,10 @@ public class CustomTable extends AbstractTableModel {
         return columnNames[col];
     }
 
+    public Class getColumnClass(int col) {
+        return getValueAt(0, col).getClass();
+    }
+
     public Object getValueAt(int row, int col) {
         switch (col) {
             case 0:
@@ -41,4 +47,37 @@ public class CustomTable extends AbstractTableModel {
         }
         return null;
     }
+
+    public List<Item> getData() {
+        return data;
+    }
+
+    public boolean isCellEditable(int row, int col) {
+        return true;
+    }
+
+    public void setValueAt(Object value, int row, int col) {
+        switch (col) {
+            case 0:
+                data.get(row).setLabel((String) value);
+                break;
+            case 1:
+                data.get(row).setAmount((Double) value);
+                break;
+            case 2:
+                data.get(row).setDate((LocalDate) value);
+                break;
+            case 3:
+                data.get(row).setCategory((String) value);
+                break;
+        }
+        fireTableCellUpdated(row, col);
+    }
+
+//    public void updateRow(Item item, int row) {
+//        data.get(row).setCategory(item.getCategory());
+//        data.get(row).setLabel(item.getLabel());
+//        data.get(row).setAmount(item.getAmount());
+//        data.get(row).setDate(item.getDate());
+//    }
 }
