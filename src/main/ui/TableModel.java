@@ -1,17 +1,20 @@
 package ui;
 
+import model.ExpenseItem;
+import model.IncomeItem;
 import model.Item;
 
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomTable extends AbstractTableModel {
+public class TableModel extends AbstractTableModel {
 
-    private final String[] columnNames = {"Label", "Amount", "Date", "Category"};
+    private final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
     List<Item> data;
 
-    public CustomTable(List<Item> data) {
+    public TableModel(List<Item> data) {
         this.data = data;
         fireTableDataChanged();
     }
@@ -23,7 +26,7 @@ public class CustomTable extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return columnNames.length;
     }
 
     public String getColumnName(int col) {
@@ -44,6 +47,17 @@ public class CustomTable extends AbstractTableModel {
                 return data.get(row).getDate();
             case 3:
                 return data.get(row).getCategory();
+            case 4:
+                return data.get(row).getClassName();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getCategoryList(int row) {
+        if (IncomeItem.categories.contains(getValueAt(row, 3))) {
+            return IncomeItem.categories;
+        } else if (ExpenseItem.categories.contains(getValueAt(row, 3))) {
+            return ExpenseItem.categories;
         }
         return null;
     }
@@ -53,7 +67,7 @@ public class CustomTable extends AbstractTableModel {
     }
 
     public boolean isCellEditable(int row, int col) {
-        return true;
+        return col < 4;
     }
 
     public void setValueAt(Object value, int row, int col) {

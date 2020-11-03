@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI implements ActionListener {
+public class SwingUI implements ActionListener {
 
     JFrame frame;
     MainPanel newContentPane;
 
-    public GUI() {
-        frame = new JFrame("GUI");
+    public SwingUI() {
+        frame = new JFrame("SwingUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         newContentPane = new MainPanel();

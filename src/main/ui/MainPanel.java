@@ -36,16 +36,16 @@ public class MainPanel extends JPanel {
 //    }
 
     public void revertChanges() {
-        table.setModel(new CustomTable(loadData().getItemList()));
+        table.setModel(new TableModel(loadData().getItemList()));
     }
 
     public void saveChanges() {
-        cashFlowAccount.replaceItems(((CustomTable) table.getModel()).getData());
+        cashFlowAccount.replaceItems(((TableModel) table.getModel()).getData());
         updateData();
     }
 
     private void addTable() {
-        table = new JTable(new CustomTable(cashFlowAccount.getItemList()));
+        table = new CustomJTable(new TableModel(cashFlowAccount.getItemList()));
         table.setPreferredScrollableViewportSize(new Dimension(500, 800));
         table.setFillsViewportHeight(true);
         table.setRowHeight(50);
@@ -56,6 +56,7 @@ public class MainPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.NORTH);
+
     }
 
     private void initializeGlobal() {
