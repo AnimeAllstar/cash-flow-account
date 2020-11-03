@@ -44,7 +44,7 @@ public class TableModel extends AbstractTableModel {
             case 1:
                 return data.get(row).getAmount();
             case 2:
-                return data.get(row).getDate();
+                return data.get(row).getDateString();
             case 3:
                 return data.get(row).getCategory();
             case 4:
@@ -79,7 +79,7 @@ public class TableModel extends AbstractTableModel {
                 data.get(row).setAmount((Double) value);
                 break;
             case 2:
-                data.get(row).setDate((LocalDate) value);
+                data.get(row).setDate(LocalDate.parse((CharSequence) value));
                 break;
             case 3:
                 data.get(row).setCategory((String) value);

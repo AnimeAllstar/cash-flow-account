@@ -71,6 +71,10 @@ public abstract class Item implements Comparable<Item>, Writable {
         this.date = date;
     }
 
+    public String getDateString() {
+        return String.valueOf(date);
+    }
+
     public String getCategory() {
         return category;
     }
