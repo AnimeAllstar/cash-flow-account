@@ -10,6 +10,7 @@ public class SwingUI implements ActionListener {
     JFrame frame;
     MainPanel mainPanel;
     AddItemDialog addItemDialog;
+    PieChartDialog pieChartDialog;
 
     public SwingUI() {
         frame = new JFrame("SwingUI");
@@ -85,7 +86,17 @@ public class SwingUI implements ActionListener {
                 createAddItemDialog();
                 getItemFromDialog();
                 break;
+            case "pieChart":
+                createPieChartDialog();
+                break;
         }
+    }
+
+    public void createPieChartDialog() {
+        pieChartDialog = new PieChartDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL,
+                ((TableModel) mainPanel.table.getModel()).getCashFlowAccount());
+        pieChartDialog.setLocationRelativeTo(frame);
+        pieChartDialog.setVisible(true);
     }
 
     public void createAddItemDialog() {
