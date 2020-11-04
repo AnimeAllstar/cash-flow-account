@@ -7,10 +7,12 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements ActionListener {
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -21,13 +23,23 @@ public class MainPanel extends JPanel {
 
     JTable table;
     CashFlowAccount cashFlowAccount;
+    JPopupMenu rightClickMenu;
 
     public MainPanel() {
         super(new BorderLayout());
         this.setPreferredSize(new Dimension(1000, 800));
         initializeGlobal();
         addTable();
+        addToRightClickMenu();
         //addSouthPanel();
+    }
+
+    private void addToRightClickMenu() {
+        JMenuItem removeItem = new JMenuItem("Remove");
+        removeItem.setActionCommand("remove");
+        removeItem.addActionListener(this);
+        rightClickMenu.add(removeItem);
+        table.setComponentPopupMenu(rightClickMenu);
     }
 
 //    private void addSouthPanel() {
@@ -63,6 +75,7 @@ public class MainPanel extends JPanel {
         jsonReader = new JsonReader(JSON_PATH);
         jsonWriter = new JsonWriter(JSON_PATH);
         cashFlowAccount = loadData();
+        rightClickMenu = new JPopupMenu();
     }
 
     private CashFlowAccount loadData() {
@@ -79,6 +92,16 @@ public class MainPanel extends JPanel {
             jsonWriter.write(cashFlowAccount);
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED + "Unable to write to file: " + JSON_PATH + ANSI_RESET);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("remove")) {
+            int rowIndex = table.getSelectedRow();
+            if (rowIndex != -1) {
+                ((CustomJTable) table).removeRow(table.getSelectedRow());
+            }
         }
     }
 }

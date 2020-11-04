@@ -88,10 +88,8 @@ public class TableModel extends AbstractTableModel {
         fireTableCellUpdated(row, col);
     }
 
-//    public void updateRow(Item item, int row) {
-//        data.get(row).setCategory(item.getCategory());
-//        data.get(row).setLabel(item.getLabel());
-//        data.get(row).setAmount(item.getAmount());
-//        data.get(row).setDate(item.getDate());
-//    }
+    public void removeRow(int selectedRow) {
+        data.remove(selectedRow);
+        fireTableRowsDeleted(selectedRow, selectedRow);
+    }
 }

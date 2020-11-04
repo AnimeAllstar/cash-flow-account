@@ -26,8 +26,14 @@ public class SwingUI implements ActionListener {
 
     private JMenuBar addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
+        menuBar.add(fileMenu());
+        menuBar.add(toolMenu());
+        menuBar.add(analyseMenu());
+        return menuBar;
+    }
+
+    private JMenu fileMenu() {
         JMenu menu = new JMenu("File");
-        menuBar.add(menu);
 
         JMenuItem menuItem = new JMenuItem("Save Changes");
         menuItem.setActionCommand("save");
@@ -39,8 +45,31 @@ public class SwingUI implements ActionListener {
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        return menuBar;
+        return menu;
     }
+
+    private JMenu toolMenu() {
+        JMenu menu = new JMenu("Tools");
+
+        JMenuItem menuItem = new JMenuItem("Add Item");
+        menuItem.setActionCommand("add");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        return menu;
+    }
+
+    private JMenu analyseMenu() {
+        JMenu menu = new JMenu("Analyse");
+
+        JMenuItem menuItem = new JMenuItem("Pie Chart");
+        menuItem.setActionCommand("pieChart");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        return menu;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

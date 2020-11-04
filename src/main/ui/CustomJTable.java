@@ -19,4 +19,8 @@ public class CustomJTable extends JTable {
             return super.getCellEditor(row, column);
         }
     }
+
+    public void removeRow(int selectedRow) {
+        ((TableModel) this.getModel()).removeRow(selectedRow);
+    }
 }
