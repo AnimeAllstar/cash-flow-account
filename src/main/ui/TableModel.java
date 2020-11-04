@@ -13,12 +13,16 @@ import java.util.List;
 public class TableModel extends AbstractTableModel {
 
     private final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
-    CashFlowAccount cashFlowAccount = new CashFlowAccount();
+    CashFlowAccount cashFlowAccount;
 
-    public TableModel(List<Item> data) {
-        cashFlowAccount.setItems(data);
+    public TableModel(CashFlowAccount account) {
+        cashFlowAccount = account;
         cashFlowAccount.sortItems();
         fireTableDataChanged();
+    }
+
+    public CashFlowAccount getCashFlowAccount() {
+        return cashFlowAccount;
     }
 
     @Override

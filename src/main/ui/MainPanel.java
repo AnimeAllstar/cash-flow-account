@@ -23,7 +23,6 @@ public class MainPanel extends JPanel implements ActionListener {
     JsonWriter jsonWriter;
 
     JTable table;
-    CashFlowAccount cashFlowAccount;
     JPopupMenu rightClickMenu;
 
     public MainPanel() {
@@ -43,16 +42,15 @@ public class MainPanel extends JPanel implements ActionListener {
     }
 
     public void revertChanges() {
-        table.setModel(new TableModel(loadData().getItemList()));
+        table.setModel(new TableModel(loadData()));
     }
 
     public void saveChanges() {
-        cashFlowAccount.setItems(((TableModel) table.getModel()).getData());
-        updateData();
+        updateData(((TableModel) table.getModel()).getCashFlowAccount());
     }
 
     private void addTable() {
-        table = new CustomJTable(new TableModel(cashFlowAccount.getItemList()));
+        table = new CustomJTable(new TableModel(loadData()));
         table.setPreferredScrollableViewportSize(new Dimension(500, 800));
         table.setFillsViewportHeight(true);
         table.setRowHeight(50);
@@ -70,7 +68,6 @@ public class MainPanel extends JPanel implements ActionListener {
     private void initializeGlobal() {
         jsonReader = new JsonReader(JSON_PATH);
         jsonWriter = new JsonWriter(JSON_PATH);
-        cashFlowAccount = loadData();
         rightClickMenu = new JPopupMenu();
     }
 
@@ -83,9 +80,9 @@ public class MainPanel extends JPanel implements ActionListener {
         return new CashFlowAccount();
     }
 
-    private void updateData() {
+    private void updateData(CashFlowAccount account) {
         try {
-            jsonWriter.write(cashFlowAccount);
+            jsonWriter.write(account);
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED + "Unable to write to file: " + JSON_PATH + ANSI_RESET);
         }

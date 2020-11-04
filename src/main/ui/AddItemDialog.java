@@ -36,7 +36,7 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
     public AddItemDialog(JFrame frame, ModalityType documentModal) {
         super(frame, "Add Item", documentModal);
         this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        this.setMinimumSize(new Dimension(300, 250));
+        this.setMinimumSize(new Dimension(325, 250));
 
         initializeGLocal();
         createLabels();
@@ -44,7 +44,7 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
 
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
-        this.add(fieldPane, BorderLayout.EAST);
+        this.add(fieldPane, BorderLayout.CENTER);
         this.add(labelPane, BorderLayout.WEST);
 
         this.add(addBtn, BorderLayout.PAGE_END);
@@ -59,19 +59,19 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
     }
 
     private void createLabels() {
-        amountLabel = new JLabel("Amount");
+        amountLabel = new JLabel("  Amount");
         amountLabel.setLabelFor(amountField);
 
-        categoryLabel = new JLabel("Category");
+        categoryLabel = new JLabel("  Category");
         categoryLabel.setLabelFor(categoryComboBox);
 
-        typeLabel = new JLabel("Type");
+        typeLabel = new JLabel("  Type");
         typeLabel.setLabelFor(typeComboBox);
 
-        dateLabel = new JLabel("Date (yyyy-MM-dd)");
+        dateLabel = new JLabel("  Date (yyyy-MM-dd)  ");
         dateLabel.setLabelFor(dateField);
 
-        labelLabel = new JLabel("Label");
+        labelLabel = new JLabel("  Label");
         labelLabel.setLabelFor(labelField);
     }
 
