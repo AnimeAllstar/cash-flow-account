@@ -8,7 +8,6 @@ import model.Item;
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TableModel extends AbstractTableModel {
 
@@ -61,16 +60,12 @@ public class TableModel extends AbstractTableModel {
     }
 
     public ArrayList<String> getCategoryList(int row) {
-        if (IncomeItem.categories.contains(getValueAt(row, 3))) {
+        if (getValueAt(row, 4).equals("IncomeItem")) {
             return IncomeItem.categories;
-        } else if (ExpenseItem.categories.contains(getValueAt(row, 3))) {
+        } else if (getValueAt(row, 4).equals("ExpenseItem")) {
             return ExpenseItem.categories;
         }
         return null;
-    }
-
-    public List<Item> getData() {
-        return cashFlowAccount.getItemList();
     }
 
     public boolean isCellEditable(int row, int col) {

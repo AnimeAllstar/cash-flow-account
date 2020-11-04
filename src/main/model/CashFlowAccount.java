@@ -12,7 +12,7 @@ import java.util.List;
 // into an ArrayList of type Item
 // contains methods that allow the user to access and alter the list
 public class CashFlowAccount implements Writable {
-    private List<Item> itemList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
 
     public List<Item> getItemList() {
         return itemList;
@@ -53,10 +53,6 @@ public class CashFlowAccount implements Writable {
     public void addItem(Item item) {
         itemList.add(item);
         Collections.sort(itemList);
-    }
-
-    public void setItems(List<Item> newList) {
-        itemList = newList;
     }
 
     /*
