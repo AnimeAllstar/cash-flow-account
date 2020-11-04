@@ -1,21 +1,23 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SwingUI implements ActionListener {
 
     JFrame frame;
-    MainPanel newContentPane;
+    MainPanel mainPanel;
+    JDialog addItemDialog;
 
     public SwingUI() {
         frame = new JFrame("SwingUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        newContentPane = new MainPanel();
-        newContentPane.setOpaque(true);
-        frame.setContentPane(newContentPane);
+        mainPanel = new MainPanel();
+        mainPanel.setOpaque(true);
+        frame.setContentPane(mainPanel);
         frame.setResizable(false);
 
         frame.setJMenuBar(this.addMenuBar());
@@ -70,13 +72,24 @@ public class SwingUI implements ActionListener {
         return menu;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("revert")) {
-            newContentPane.revertChanges();
-        } else if (e.getActionCommand().equals("save")) {
-            newContentPane.saveChanges();
+        switch (e.getActionCommand()) {
+            case "revert":
+                mainPanel.revertChanges();
+                break;
+            case "save":
+                mainPanel.saveChanges();
+                break;
+            case "add":
+                createAddItemDialog();
+                break;
         }
+    }
+
+    public void createAddItemDialog() {
+        addItemDialog = new AddItemDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL);
+        addItemDialog.setLocationRelativeTo(frame);
+        addItemDialog.setVisible(true);
     }
 }
