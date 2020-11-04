@@ -83,7 +83,7 @@ public class SwingUI implements ActionListener {
                 break;
             case "add":
                 createAddItemDialog();
-                mainPanel.addRow(addItemDialog.getValue());
+                getItemFromDialog();
                 break;
         }
     }
@@ -92,5 +92,11 @@ public class SwingUI implements ActionListener {
         addItemDialog = new AddItemDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL);
         addItemDialog.setLocationRelativeTo(frame);
         addItemDialog.setVisible(true);
+    }
+
+    public void getItemFromDialog() {
+        if (addItemDialog.getValue() != null) {
+            mainPanel.addRow(addItemDialog.getValue());
+        }
     }
 }

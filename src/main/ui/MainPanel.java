@@ -47,7 +47,7 @@ public class MainPanel extends JPanel implements ActionListener {
     }
 
     public void saveChanges() {
-        cashFlowAccount.replaceItems(((TableModel) table.getModel()).getData());
+        cashFlowAccount.setItems(((TableModel) table.getModel()).getData());
         updateData();
     }
 

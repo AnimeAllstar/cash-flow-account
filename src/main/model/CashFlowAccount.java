@@ -36,6 +36,14 @@ public class CashFlowAccount implements Writable {
         return tempList;
     }
 
+    public void sortItems() {
+        Collections.sort(itemList);
+    }
+
+    public int size() {
+        return itemList.size();
+    }
+
     /*
      * REQUIRES: item must not be null
      * MODIFIES: this
@@ -47,7 +55,7 @@ public class CashFlowAccount implements Writable {
         Collections.sort(itemList);
     }
 
-    public void replaceItems(List<Item> newList) {
+    public void setItems(List<Item> newList) {
         itemList = newList;
     }
 
@@ -60,6 +68,15 @@ public class CashFlowAccount implements Writable {
      */
     public boolean removeItem(Item item) {
         return itemList.remove(item);
+    }
+
+    public boolean removeItem(int index) {
+        try {
+            itemList.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+        return true;
     }
 
     /*
