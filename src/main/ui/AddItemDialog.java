@@ -2,15 +2,19 @@ package ui;
 
 import model.ExpenseItem;
 import model.IncomeItem;
+import model.Item;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
-public class AddItemDialog extends JDialog implements ItemListener {
+public class AddItemDialog extends JDialog implements ItemListener, ActionListener {
 
     private final String[] itemTypes = {"IncomeItem", "ExpenseItem"};
     private JLabel amountLabel;
@@ -25,6 +29,9 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JComboBox<String> typeComboBox;
     private JPanel labelPane;
     private JPanel fieldPane;
+    private JButton addBtn;
+
+    private Item newItem;
 
     public AddItemDialog(JFrame frame, ModalityType documentModal) {
         super(frame, "Add Item", documentModal);
@@ -37,9 +44,18 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
-        this.add(fieldPane, BorderLayout.CENTER);
+        this.add(fieldPane, BorderLayout.EAST);
         this.add(labelPane, BorderLayout.WEST);
 
+        this.add(addBtn, BorderLayout.PAGE_END);
+    }
+
+    public void close() {
+        this.dispose();
+    }
+
+    public Item getValue() {
+        return newItem;
     }
 
     private void createLabels() {
@@ -52,7 +68,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
         typeLabel = new JLabel("Type");
         typeLabel.setLabelFor(typeComboBox);
 
-        dateLabel = new JLabel("Date");
+        dateLabel = new JLabel("Date (yyyy-MM-dd)");
         dateLabel.setLabelFor(dateField);
 
         labelLabel = new JLabel("Label");
@@ -83,6 +99,9 @@ public class AddItemDialog extends JDialog implements ItemListener {
         labelPane = new JPanel(new GridLayout(0, 1));
         fieldPane = new JPanel(new GridLayout(0, 1));
 
+        addBtn = new JButton("Add Item");
+        addBtn.addActionListener(this);
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateField = new JFormattedTextField(dateFormat);
     }
@@ -99,5 +118,21 @@ public class AddItemDialog extends JDialog implements ItemListener {
             }
             categoryComboBox.setModel(model);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        createItem();
+    }
+
+    public void createItem() {
+        if (typeComboBox.getSelectedItem().equals("IncomeItem")) {
+            newItem = new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                    LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
+        } else if (typeComboBox.getSelectedItem().equals("ExpenseItem")) {
+            newItem = new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                    LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
+        }
+        close();
     }
 }

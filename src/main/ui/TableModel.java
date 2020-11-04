@@ -7,6 +7,7 @@ import model.Item;
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TableModel extends AbstractTableModel {
@@ -16,6 +17,7 @@ public class TableModel extends AbstractTableModel {
 
     public TableModel(List<Item> data) {
         this.data = data;
+        Collections.sort(data);
         fireTableDataChanged();
     }
 
@@ -85,11 +87,18 @@ public class TableModel extends AbstractTableModel {
                 data.get(row).setCategory((String) value);
                 break;
         }
-        fireTableCellUpdated(row, col);
+        Collections.sort(data);
+        fireTableDataChanged();
     }
 
     public void removeRow(int selectedRow) {
         data.remove(selectedRow);
         fireTableRowsDeleted(selectedRow, selectedRow);
+    }
+
+    public void addRow(Item item) {
+        data.add(item);
+        Collections.sort(data);
+        fireTableDataChanged();
     }
 }

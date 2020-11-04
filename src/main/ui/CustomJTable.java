@@ -1,5 +1,7 @@
 package ui;
 
+import model.Item;
+
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.util.List;
@@ -22,5 +24,9 @@ public class CustomJTable extends JTable {
 
     public void removeRow(int selectedRow) {
         ((TableModel) this.getModel()).removeRow(selectedRow);
+    }
+
+    public void addRow(Item item) {
+        ((TableModel) this.getModel()).addRow(item);
     }
 }

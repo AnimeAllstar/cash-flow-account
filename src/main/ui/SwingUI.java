@@ -9,7 +9,7 @@ public class SwingUI implements ActionListener {
 
     JFrame frame;
     MainPanel mainPanel;
-    JDialog addItemDialog;
+    AddItemDialog addItemDialog;
 
     public SwingUI() {
         frame = new JFrame("SwingUI");
@@ -83,6 +83,7 @@ public class SwingUI implements ActionListener {
                 break;
             case "add":
                 createAddItemDialog();
+                mainPanel.addRow(addItemDialog.getValue());
                 break;
         }
     }

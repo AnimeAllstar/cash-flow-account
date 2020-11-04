@@ -1,6 +1,7 @@
 package ui;
 
 import model.CashFlowAccount;
+import model.Item;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -31,7 +32,6 @@ public class MainPanel extends JPanel implements ActionListener {
         initializeGlobal();
         addTable();
         addToRightClickMenu();
-        //addSouthPanel();
     }
 
     private void addToRightClickMenu() {
@@ -41,11 +41,6 @@ public class MainPanel extends JPanel implements ActionListener {
         rightClickMenu.add(removeItem);
         table.setComponentPopupMenu(rightClickMenu);
     }
-
-//    private void addSouthPanel() {
-//        Panel buttonPanel = new Panel(new FlowLayout());
-//        buttonPanel.setPreferredSize(new Dimension(this.getWidth(),100));
-//    }
 
     public void revertChanges() {
         table.setModel(new TableModel(loadData().getItemList()));
@@ -62,6 +57,7 @@ public class MainPanel extends JPanel implements ActionListener {
         table.setFillsViewportHeight(true);
         table.setRowHeight(50);
         table.setRowHeight(0, 50);
+        table.getTableHeader().setReorderingAllowed(false);
 
         JTableHeader header = table.getTableHeader();
         header.setPreferredSize(new Dimension(header.getWidth(), 50));
@@ -93,6 +89,10 @@ public class MainPanel extends JPanel implements ActionListener {
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED + "Unable to write to file: " + JSON_PATH + ANSI_RESET);
         }
+    }
+
+    public void addRow(Item item) {
+        ((CustomJTable) table).addRow(item);
     }
 
     @Override
