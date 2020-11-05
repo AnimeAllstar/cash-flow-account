@@ -15,49 +15,50 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PieChartDialog extends JDialog {
-    PieDataset dataset;
     private List<Item> incomeItems;
     private List<Item> expenseItems;
+
+    private PieDataset dataset;
     private JTabbedPane tabbedPane;
 
     public PieChartDialog(JFrame frame, Dialog.ModalityType modeless, CashFlowAccount account) {
         super(frame, "Pie Chart", modeless);
-        initializeGlobal(account);
         this.setMinimumSize(new Dimension(550, 500));
-        addChartsToPane();
+
+        initializeGlobal(account);
+        addChartsToTabbedPane();
         setContentPane(tabbedPane);
     }
 
-    private void addChartsToPane() {
+    private void addChartsToTabbedPane() {
         tabbedPane.addTab("Income Items", createPanel(incomeItems, "Income Items"));
         tabbedPane.addTab("Expense Items", createPanel(expenseItems, "Expense Items"));
     }
 
     private JPanel createPanel(List<Item> items, String title) {
-        JFreeChart chart = createChart(getPieDataSet(computePercentages(items)), title);
-        return new ChartPanel(chart);
+        return new ChartPanel(createChart(createPieDataSet(computeAmounts(items)), title));
     }
 
     private JFreeChart createChart(PieDataset dataset, String title) {
         return ChartFactory.createPieChart(title, dataset, true, true, false);
     }
 
-    private List<Category> computePercentages(List<Item> itemList) {
+    private List<Category> computeAmounts(List<Item> itemList) {
         List<Category> categoryList = new ArrayList<>();
         for (Item elem : itemList) {
-            Category category = new Category(elem.getCategory(), elem.getAmount());
+            Category currentCategory = new Category(elem.getCategory(), elem.getAmount());
             Iterator<Category> it = categoryList.iterator();
             boolean contains = false;
             while (it.hasNext()) {
-                Category c = it.next();
-                if (c.equals(category)) {
-                    c.amount += category.amount;
+                Category existingCategory = it.next();
+                if (existingCategory.equals(currentCategory)) {
+                    existingCategory.amount += currentCategory.amount;
                     contains = true;
                     break;
                 }
             }
             if (!contains) {
-                categoryList.add(category);
+                categoryList.add(currentCategory);
             }
         }
         return categoryList;
@@ -70,7 +71,7 @@ public class PieChartDialog extends JDialog {
         expenseItems = account.getItemList("ExpenseItem");
     }
 
-    private PieDataset getPieDataSet(List<Category> dateList) {
+    private PieDataset createPieDataSet(List<Category> dateList) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (Category elem : dateList) {
             dataset.setValue(elem.name, elem.amount);
@@ -79,12 +80,12 @@ public class PieChartDialog extends JDialog {
     }
 
     private class Category {
-        String name;
-        double amount;
+        private final String name;
+        private double amount;
 
-        public Category(String category, double amnt) {
-            name = category;
-            amount = amnt;
+        public Category(String name, double amount) {
+            this.name = name;
+            this.amount = amount;
         }
 
         public boolean equals(Category category) {

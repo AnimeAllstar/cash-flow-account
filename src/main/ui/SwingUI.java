@@ -7,24 +7,27 @@ import java.awt.event.ActionListener;
 
 public class SwingUI implements ActionListener {
 
-    JFrame frame;
-    MainPanel mainPanel;
-    AddItemDialog addItemDialog;
-    PieChartDialog pieChartDialog;
+    private JFrame frame;
+    private MainPanel mainPanel;
+    private AddItemDialog addItemDialog;
+    private PieChartDialog pieChartDialog;
 
     public SwingUI() {
-        frame = new JFrame("SwingUI");
+        initializeGlobal();
+        configureFrame();
+    }
+
+    private void configureFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        mainPanel = new MainPanel();
-        mainPanel.setOpaque(true);
         frame.setContentPane(mainPanel);
-        frame.setResizable(false);
-
         frame.setJMenuBar(this.addMenuBar());
-
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public void initializeGlobal() {
+        frame = new JFrame("SwingUI");
+        mainPanel = new MainPanel();
     }
 
     private JMenuBar addMenuBar() {

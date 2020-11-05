@@ -6,6 +6,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,21 +16,17 @@ import java.io.IOException;
 
 public class MainPanel extends JPanel implements ActionListener {
 
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
-
     private static final String JSON_PATH = "./data/itemList.json";
-    JsonReader jsonReader;
-    JsonWriter jsonWriter;
-
-    JTable table;
-    JPopupMenu rightClickMenu;
+    protected JTable table;
+    protected JPopupMenu rightClickMenu;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     public MainPanel() {
         super(new BorderLayout());
         this.setPreferredSize(new Dimension(1000, 800));
         initializeGlobal();
-        addTable();
+        configureTable();
         addToRightClickMenu();
     }
 
@@ -43,31 +40,40 @@ public class MainPanel extends JPanel implements ActionListener {
 
     public void revertChanges() {
         table.setModel(new TableModel(loadData()));
+        alignTableContents(SwingConstants.CENTER);
     }
 
     public void saveChanges() {
         updateData(((TableModel) table.getModel()).getCashFlowAccount());
     }
 
-    private void addTable() {
-        table = new CustomJTable(new TableModel(loadData()));
-        table.setPreferredScrollableViewportSize(new Dimension(500, 800));
+    private void configureTable() {
         table.setFillsViewportHeight(true);
-        table.setRowHeight(50);
-        table.setRowHeight(0, 50);
+        table.setRowHeight(40);
         table.getTableHeader().setReorderingAllowed(false);
 
         JTableHeader header = table.getTableHeader();
-        header.setPreferredSize(new Dimension(header.getWidth(), 50));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+
+        alignTableContents(SwingConstants.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+    }
 
+    private void alignTableContents(int dir) {
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(dir);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+        }
     }
 
     private void initializeGlobal() {
         jsonReader = new JsonReader(JSON_PATH);
         jsonWriter = new JsonWriter(JSON_PATH);
+
+        table = new CustomJTable(new TableModel(loadData()));
         rightClickMenu = new JPopupMenu();
     }
 
@@ -75,7 +81,7 @@ public class MainPanel extends JPanel implements ActionListener {
         try {
             return jsonReader.read();
         } catch (IOException e) {
-            System.out.println(ANSI_RED + "Unable to read from file: " + JSON_PATH + ANSI_RESET);
+            System.out.println("Unable to read from file: " + JSON_PATH);
         }
         return new CashFlowAccount();
     }
@@ -84,7 +90,7 @@ public class MainPanel extends JPanel implements ActionListener {
         try {
             jsonWriter.write(account);
         } catch (FileNotFoundException e) {
-            System.out.println(ANSI_RED + "Unable to write to file: " + JSON_PATH + ANSI_RESET);
+            System.out.println("Unable to write to file: " + JSON_PATH);
         }
     }
 

@@ -6,29 +6,31 @@ import model.Item;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-public class AddItemDialog extends JDialog implements ItemListener, ActionListener {
+public class AddItemDialog extends JDialog implements ItemListener {
 
     private final String[] itemTypes = {"IncomeItem", "ExpenseItem"};
+
     private JLabel amountLabel;
     private JLabel labelLabel;
     private JLabel categoryLabel;
     private JLabel typeLabel;
     private JLabel dateLabel;
+
     private JTextField labelField;
-    private JComboBox<Object> categoryComboBox;
     private JTextField dateField;
     private JTextField amountField;
+
+    private JComboBox<Object> categoryComboBox;
     private JComboBox<String> typeComboBox;
+
     private JPanel labelPane;
     private JPanel fieldPane;
+
     private JButton addBtn;
 
     private Item newItem;
@@ -38,15 +40,13 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
         this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         this.setMinimumSize(new Dimension(325, 250));
 
-        initializeGLocal();
+        initializeComponents();
         createLabels();
-        addComponents();
+        addComponentsToPanes();
 
-        BorderLayout layout = new BorderLayout();
-        this.setLayout(layout);
+        this.setLayout(new BorderLayout());
         this.add(fieldPane, BorderLayout.CENTER);
         this.add(labelPane, BorderLayout.WEST);
-
         this.add(addBtn, BorderLayout.PAGE_END);
     }
 
@@ -75,7 +75,7 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
         labelLabel.setLabelFor(labelField);
     }
 
-    private void addComponents() {
+    private void addComponentsToPanes() {
         labelPane.add(typeLabel);
         labelPane.add(labelLabel);
         labelPane.add(amountLabel);
@@ -89,21 +89,20 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
         fieldPane.add(categoryComboBox);
     }
 
-    private void initializeGLocal() {
-        labelField = new JTextField(15);
+    private void initializeComponents() {
+        labelField = new JTextField();
         categoryComboBox = new JComboBox<>(IncomeItem.categories.toArray());
-        amountField = new JFormattedTextField();
         typeComboBox = new JComboBox<>(itemTypes);
         typeComboBox.addItemListener(this);
+
+        amountField = new JFormattedTextField();
+        dateField = new JFormattedTextField(new SimpleDateFormat("yyyy-MM-dd"));
 
         labelPane = new JPanel(new GridLayout(0, 1));
         fieldPane = new JPanel(new GridLayout(0, 1));
 
         addBtn = new JButton("Add Item");
-        addBtn.addActionListener(this);
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateField = new JFormattedTextField(dateFormat);
+        addBtn.addActionListener(e -> createItem());
     }
 
     @Override
@@ -118,11 +117,6 @@ public class AddItemDialog extends JDialog implements ItemListener, ActionListen
             }
             categoryComboBox.setModel(model);
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        createItem();
     }
 
     public void createItem() {
