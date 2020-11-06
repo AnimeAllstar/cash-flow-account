@@ -24,7 +24,7 @@ public abstract class Item implements Comparable<Item>, Writable {
     /*
      * REQUIRES: label has a non-zero length
      *           amount >= 0
-     *           date in yyyy-mm-dd format
+     *           date in yyyy-MM-dd format
      *           category exists in "categories" variable in sub-class
      * EFFECTS: creates a new Item with a label, amount, date and category
      */

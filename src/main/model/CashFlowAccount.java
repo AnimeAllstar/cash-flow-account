@@ -51,7 +51,7 @@ public class CashFlowAccount implements Writable {
      * REQUIRES: item must not be null
      * MODIFIES: this
      * EFFECTS: adds item to itemList
-     *          calls sortItems()
+     *          sort items
      */
     public void addItem(Item item) {
         itemList.add(item);
