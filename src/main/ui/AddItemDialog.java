@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AddItemDialog extends JDialog implements ItemListener {
 
@@ -34,6 +34,8 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JButton addBtn;
 
     private Item newItem;
+
+    private final ArrayList<JComponent> validateFieldList = new ArrayList<>();
 
     public AddItemDialog(JFrame frame, ModalityType documentModal) {
         super(frame, "Add Item", documentModal);
@@ -60,19 +62,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     private void createLabels() {
         amountLabel = new JLabel("  Amount");
-        amountLabel.setLabelFor(amountField);
-
         categoryLabel = new JLabel("  Category");
-        categoryLabel.setLabelFor(categoryComboBox);
-
         typeLabel = new JLabel("  Type");
-        typeLabel.setLabelFor(typeComboBox);
-
         dateLabel = new JLabel("  Date (yyyy-MM-dd)  ");
-        dateLabel.setLabelFor(dateField);
-
         labelLabel = new JLabel("  Label");
-        labelLabel.setLabelFor(labelField);
     }
 
     private void addComponentsToPanes() {
@@ -91,18 +84,25 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     private void initializeComponents() {
         labelField = new JTextField();
+        labelField.setName("Label");
         categoryComboBox = new JComboBox<>(IncomeItem.categories.toArray());
         typeComboBox = new JComboBox<>(itemTypes);
         typeComboBox.addItemListener(this);
 
-        amountField = new JFormattedTextField();
-        dateField = new JFormattedTextField(new SimpleDateFormat("yyyy-MM-dd"));
+        amountField = new JTextField();
+        amountField.setName("Amount");
+        dateField = new JTextField();
+        dateField.setName("Date");
 
         labelPane = new JPanel(new GridLayout(0, 1));
         fieldPane = new JPanel(new GridLayout(0, 1));
 
         addBtn = new JButton("Add Item");
-        addBtn.addActionListener(e -> createItem());
+        addBtn.addActionListener(e -> addBtnListener());
+
+        validateFieldList.add(labelField);
+        validateFieldList.add(amountField);
+        validateFieldList.add(dateField);
     }
 
     @Override
@@ -117,6 +117,22 @@ public class AddItemDialog extends JDialog implements ItemListener {
             }
             categoryComboBox.setModel(model);
         }
+    }
+
+    public void addBtnListener() {
+        if (validateInputs()) {
+            createItem();
+        }
+    }
+
+    private boolean validateInputs() {
+        CustomVerifier verifier = new CustomVerifier();
+        for (JComponent field : validateFieldList) {
+            if (!verifier.shouldYieldFocus(field)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void createItem() {
