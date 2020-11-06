@@ -51,6 +51,7 @@ public abstract class ItemTest {
         newItem.setDate(LocalDate.now());
         assertEquals(LocalDate.now(), newItem.getDate());
         assertEquals(-item.getDate().compareTo(newItem.getDate()), item.compareTo(newItem));
+        assertEquals(-item.getDateString().compareTo(newItem.getDateString()), item.compareTo(newItem));
     }
 
     public void testEmptyConstructor(Item newItem) {

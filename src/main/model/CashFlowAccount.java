@@ -36,10 +36,13 @@ public class CashFlowAccount implements Writable {
         return tempList;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Sorts items in itemList
     public void sortItems() {
         Collections.sort(itemList);
     }
 
+    //EFFECTS: returns size of itemList
     public int size() {
         return itemList.size();
     }
@@ -48,11 +51,11 @@ public class CashFlowAccount implements Writable {
      * REQUIRES: item must not be null
      * MODIFIES: this
      * EFFECTS: adds item to itemList
-     *          sorts itemList
+     *          calls sortItems()
      */
     public void addItem(Item item) {
         itemList.add(item);
-        Collections.sort(itemList);
+        sortItems();
     }
 
     /*
@@ -66,6 +69,13 @@ public class CashFlowAccount implements Writable {
         return itemList.remove(item);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: if itemList has an element at index
+     *            - removes element from itemList
+     *            - returns true
+     *          otherwise, returns false
+     */
     public boolean removeItem(int index) {
         try {
             itemList.remove(index);

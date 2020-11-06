@@ -19,7 +19,7 @@ public abstract class Item implements Comparable<Item>, Writable {
     private double amount;              // value of Item (in dollars)
     private LocalDate date;             // date of transaction for the Item (format: yyyy-mm-dd)
     private String category;            // stores the category of the Item (eg: "Healthcare" or "Education")
-    // objects can only have one category
+                                        // objects can only have one category
 
     /*
      * REQUIRES: label has a non-zero length
