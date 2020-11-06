@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// represents a subclass of JPanel used to house an object the CustomTable
 public class MainPanel extends JPanel implements ActionListener {
 
     private static final String JSON_PATH = "./data/itemList.json";
@@ -22,6 +23,10 @@ public class MainPanel extends JPanel implements ActionListener {
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
 
+    /*
+     * EFFECTS: sets layout and preferred dimensions for this
+     *          calls methods to initialize, configure and add components to this
+     */
     public MainPanel() {
         super(new BorderLayout());
         this.setPreferredSize(new Dimension(1000, 800));
@@ -30,6 +35,10 @@ public class MainPanel extends JPanel implements ActionListener {
         addToRightClickMenu();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds rightClickMenu with a "Remove" menu item to table
+     */
     private void addToRightClickMenu() {
         JMenuItem removeItem = new JMenuItem("Remove");
         removeItem.setActionCommand("remove");
@@ -38,15 +47,30 @@ public class MainPanel extends JPanel implements ActionListener {
         table.setComponentPopupMenu(rightClickMenu);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets table model to existing data in the JSON file
+     *          center aligns table content
+     */
     public void revertChanges() {
         table.setModel(new TableModel(loadData()));
         alignTableContents(SwingConstants.CENTER);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: overwrites the JSON file with data from the table model
+     */
     public void saveChanges() {
         updateData(((TableModel) table.getModel()).getCashFlowAccount());
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: configures the table appearance
+     *          adds table to a scrollPane
+     *          adds scrollPane to this
+     */
     private void configureTable() {
         table.setFillsViewportHeight(true);
         table.setRowHeight(40);
@@ -61,14 +85,22 @@ public class MainPanel extends JPanel implements ActionListener {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void alignTableContents(int dir) {
-        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment(dir);
+    /*
+     * MODIFIES: this
+     * EFFECTS: aligns table data using alignment
+     */
+    private void alignTableContents(int alignment) {
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(alignment);
         for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+            table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes global variables
+     */
     private void initializeGlobal() {
         jsonReader = new JsonReader(JSON_PATH);
         jsonWriter = new JsonWriter(JSON_PATH);
@@ -77,6 +109,10 @@ public class MainPanel extends JPanel implements ActionListener {
         rightClickMenu = new JPopupMenu();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads the CashFlowAccount from the file at JSON_PATH
+     */
     private CashFlowAccount loadData() {
         try {
             return jsonReader.read();
@@ -86,6 +122,9 @@ public class MainPanel extends JPanel implements ActionListener {
         return new CashFlowAccount();
     }
 
+    /*
+     * EFFECTS: saves the account to the file at JSON_PATH
+     */
     private void updateData(CashFlowAccount account) {
         try {
             jsonWriter.write(account);
@@ -94,16 +133,25 @@ public class MainPanel extends JPanel implements ActionListener {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds item to table
+     */
     public void addRow(Item item) {
         ((CustomJTable) table).addRow(item);
     }
 
+    /*
+     * This method is the ActionListener for the "Remove" menu item
+     * MODIFIES: this
+     * EFFECTS: if a row is selected, delete selectedRow from table
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("remove")) {
             int rowIndex = table.getSelectedRow();
             if (rowIndex != -1) {
-                ((CustomJTable) table).removeRow(table.getSelectedRow());
+                ((CustomJTable) table).removeRow(rowIndex);
             }
         }
     }

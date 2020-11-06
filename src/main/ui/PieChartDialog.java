@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// represents a JDialog used to display pie charts
 public class PieChartDialog extends JDialog {
     private List<Item> incomeItems;
     private List<Item> expenseItems;
@@ -21,6 +22,11 @@ public class PieChartDialog extends JDialog {
     private PieDataset dataset;
     private JTabbedPane tabbedPane;
 
+    /*
+     * EFFECTS: calls super constructor
+     *          initializes and adds charts tabbedPane
+     *          sets contentPane to tabbedPane
+     */
     public PieChartDialog(JFrame frame, Dialog.ModalityType modeless, CashFlowAccount account) {
         super(frame, "Pie Chart", modeless);
         this.setMinimumSize(new Dimension(550, 500));
@@ -30,19 +36,33 @@ public class PieChartDialog extends JDialog {
         setContentPane(tabbedPane);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds panels to tabbedPane
+     */
     private void addChartsToTabbedPane() {
         tabbedPane.addTab("Income Items", createPanel(incomeItems, "Income Items"));
         tabbedPane.addTab("Expense Items", createPanel(expenseItems, "Expense Items"));
     }
 
+    /*
+     * EFFECTS: returns new CharPanel
+     */
     private JPanel createPanel(List<Item> items, String title) {
         return new ChartPanel(createChart(createPieDataSet(computeAmounts(items)), title));
     }
 
+    /*
+     * EFFECTS: returns new JFreeChart
+     */
     private JFreeChart createChart(PieDataset dataset, String title) {
         return ChartFactory.createPieChart(title, dataset, true, true, false);
     }
 
+    /*
+     * EFFECTS: calculates the total amount spent on each Item category in itemList
+     *          returns total as a list of Category objects
+     */
     private List<Category> computeAmounts(List<Item> itemList) {
         List<Category> categoryList = new ArrayList<>();
         for (Item elem : itemList) {
@@ -64,6 +84,9 @@ public class PieChartDialog extends JDialog {
         return categoryList;
     }
 
+    /*
+     * EFFECTS: initializes global variables
+     */
     private void initializeGlobal(CashFlowAccount account) {
         dataset = new DefaultPieDataset();
         tabbedPane = new JTabbedPane();
@@ -71,14 +94,19 @@ public class PieChartDialog extends JDialog {
         expenseItems = account.getItemList("ExpenseItem");
     }
 
-    private PieDataset createPieDataSet(List<Category> dateList) {
+    /*
+     * EFFECTS: creates a dataset using a list of categories
+     *          returns the dataset
+     */
+    private PieDataset createPieDataSet(List<Category> dataList) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        for (Category elem : dateList) {
+        for (Category elem : dataList) {
             dataset.setValue(elem.name, elem.amount);
         }
         return dataset;
     }
 
+    // represents an inner class used to store category names and the total amount spent on them
     private class Category {
         private final String name;
         private double amount;
@@ -88,6 +116,9 @@ public class PieChartDialog extends JDialog {
             this.amount = amount;
         }
 
+        /*
+         * EFFECTS: returns whether this and category have the same name
+         */
         public boolean equals(Category category) {
             return this.name.equals(category.name);
         }

@@ -12,10 +12,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+// represents a JDialog used to add new items
 public class AddItemDialog extends JDialog implements ItemListener {
 
     private final String[] itemTypes = {"IncomeItem", "ExpenseItem"};
-    private final ArrayList<JComponent> validateFieldList = new ArrayList<>();
+    private ArrayList<JComponent> validateFieldList;
     private JLabel amountLabel;
     private JLabel labelLabel;
     private JLabel categoryLabel;
@@ -31,6 +32,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JButton addBtn;
     private Item newItem;
 
+    /*
+     * EFFECTS: calls super constructor
+     *          initializes and adds GUI components to this
+     */
     public AddItemDialog(JFrame frame, ModalityType documentModal) {
         super(frame, "Add Item", documentModal);
         this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -46,14 +51,25 @@ public class AddItemDialog extends JDialog implements ItemListener {
         this.add(addBtn, BorderLayout.PAGE_END);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: closes this
+     */
     public void close() {
         this.dispose();
     }
 
+    /*
+     * EFFECTS: returns newItem
+     */
     public Item getValue() {
         return newItem;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes JLabels
+     */
     private void createLabels() {
         amountLabel = new JLabel("  Amount");
         categoryLabel = new JLabel("  Category");
@@ -62,6 +78,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
         labelLabel = new JLabel("  Label");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds labels and fields to labelPane and FieldPane
+     */
     private void addComponentsToPanes() {
         labelPane.add(typeLabel);
         labelPane.add(labelLabel);
@@ -76,6 +96,11 @@ public class AddItemDialog extends JDialog implements ItemListener {
         fieldPane.add(categoryComboBox);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes JComponents
+     *          adds fields that need to be validated to validateFieldList
+     */
     private void initializeComponents() {
         labelField = new JTextField();
         labelField.setName("Label");
@@ -94,11 +119,16 @@ public class AddItemDialog extends JDialog implements ItemListener {
         addBtn = new JButton("Add Item");
         addBtn.addActionListener(e -> addBtnListener());
 
+        validateFieldList = new ArrayList<>();
         validateFieldList.add(labelField);
         validateFieldList.add(amountField);
         validateFieldList.add(dateField);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: changes ComboBoxModel of categoryComboBox if there is a change in typeComboBox
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -113,6 +143,12 @@ public class AddItemDialog extends JDialog implements ItemListener {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: if user inputs are valid
+     *            - create item user inputs
+     *            - close this
+     */
     public void addBtnListener() {
         if (validateInputs()) {
             createItem();
@@ -120,6 +156,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
         }
     }
 
+    /*
+     * EFFECTS: return false if any of the elements in validateFieldList have an invalid value
+     *          otherwise, return true
+     */
     private boolean validateInputs() {
         CustomVerifier verifier = new CustomVerifier();
         for (JComponent field : validateFieldList) {
@@ -130,6 +170,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
         return true;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes newItem using user inputs
+     */
     public void createItem() {
         if (Objects.equals(typeComboBox.getSelectedItem(), "IncomeItem")) {
             newItem = new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),

@@ -5,18 +5,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// represents a Swing user interface
+// contains a frame with mainPanel as the contentPane
+// and a menu bar to access other UI elements
 public class SwingUI implements ActionListener {
 
     private JFrame frame;
     private MainPanel mainPanel;
     private AddItemDialog addItemDialog;
-    private PieChartDialog pieChartDialog;
 
     public SwingUI() {
         initializeGlobal();
         configureFrame();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: configures frame
+     *          adds components to frame
+     */
     private void configureFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);
@@ -26,10 +33,13 @@ public class SwingUI implements ActionListener {
     }
 
     public void initializeGlobal() {
-        frame = new JFrame("SwingUI");
+        frame = new JFrame("Cash Flow Account");
         mainPanel = new MainPanel();
     }
 
+    /*
+     * EFFECTS: returns a menuBar with fileMenu, toolMenu and analyseMenu
+     */
     private JMenuBar addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(fileMenu());
@@ -38,6 +48,9 @@ public class SwingUI implements ActionListener {
         return menuBar;
     }
 
+    /*
+     * EFFECTS: returns a menu with save and revert menuItems
+     */
     private JMenu fileMenu() {
         JMenu menu = new JMenu("File");
 
@@ -54,6 +67,9 @@ public class SwingUI implements ActionListener {
         return menu;
     }
 
+    /*
+     * EFFECTS: returns a menu with an add menuItem
+     */
     private JMenu toolMenu() {
         JMenu menu = new JMenu("Tools");
 
@@ -65,6 +81,9 @@ public class SwingUI implements ActionListener {
         return menu;
     }
 
+    /*
+     * EFFECTS: returns a menu with an pieChart menuItem
+     */
     private JMenu analyseMenu() {
         JMenu menu = new JMenu("Analyse");
 
@@ -76,6 +95,10 @@ public class SwingUI implements ActionListener {
         return menu;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: calls appropriate methods based on the action command
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -95,19 +118,30 @@ public class SwingUI implements ActionListener {
         }
     }
 
+    /*
+     * EFFECTS: creates a new PieChartDialog
+     */
     public void createPieChartDialog() {
-        pieChartDialog = new PieChartDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL,
+        PieChartDialog pieChartDialog = new PieChartDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL,
                 ((TableModel) mainPanel.table.getModel()).getCashFlowAccount());
         pieChartDialog.setLocationRelativeTo(frame);
         pieChartDialog.setVisible(true);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates a new AddItemDialog
+     */
     public void createAddItemDialog() {
         addItemDialog = new AddItemDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL);
         addItemDialog.setLocationRelativeTo(frame);
         addItemDialog.setVisible(true);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: if user added a new item, add the new to the table in mainPanel
+     */
     public void getItemFromDialog() {
         if (addItemDialog.getValue() != null) {
             mainPanel.addRow(addItemDialog.getValue());
