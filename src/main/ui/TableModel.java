@@ -79,7 +79,7 @@ public class TableModel extends AbstractTableModel {
                 item.setLabel((String) value);
                 break;
             case 1:
-                item.setAmount((Double) value);
+                item.setAmount(Double.parseDouble((String) value));
                 break;
             case 2:
                 item.setDate(LocalDate.parse((CharSequence) value));

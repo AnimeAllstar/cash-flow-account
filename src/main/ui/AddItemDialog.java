@@ -10,32 +10,26 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddItemDialog extends JDialog implements ItemListener {
 
     private final String[] itemTypes = {"IncomeItem", "ExpenseItem"};
-
+    private final ArrayList<JComponent> validateFieldList = new ArrayList<>();
     private JLabel amountLabel;
     private JLabel labelLabel;
     private JLabel categoryLabel;
     private JLabel typeLabel;
     private JLabel dateLabel;
-
     private JTextField labelField;
     private JTextField dateField;
     private JTextField amountField;
-
     private JComboBox<Object> categoryComboBox;
     private JComboBox<String> typeComboBox;
-
     private JPanel labelPane;
     private JPanel fieldPane;
-
     private JButton addBtn;
-
     private Item newItem;
-
-    private final ArrayList<JComponent> validateFieldList = new ArrayList<>();
 
     public AddItemDialog(JFrame frame, ModalityType documentModal) {
         super(frame, "Add Item", documentModal);
@@ -122,6 +116,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
     public void addBtnListener() {
         if (validateInputs()) {
             createItem();
+            close();
         }
     }
 
@@ -136,13 +131,12 @@ public class AddItemDialog extends JDialog implements ItemListener {
     }
 
     public void createItem() {
-        if (typeComboBox.getSelectedItem().equals("IncomeItem")) {
+        if (Objects.equals(typeComboBox.getSelectedItem(), "IncomeItem")) {
             newItem = new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                     LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
-        } else if (typeComboBox.getSelectedItem().equals("ExpenseItem")) {
+        } else if (Objects.equals(typeComboBox.getSelectedItem(), "ExpenseItem")) {
             newItem = new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                     LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
         }
-        close();
     }
 }

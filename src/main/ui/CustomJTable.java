@@ -15,10 +15,22 @@ public class CustomJTable extends JTable {
     @Override
     public TableCellEditor getCellEditor(int row, int column) {
         List<String> itemList = ((TableModel) this.getModel()).getCategoryList(row);
-        if (column == 3) {
-            return new DefaultCellEditor(new JComboBox<>(itemList.toArray()));
-        } else {
-            return super.getCellEditor(row, column);
+        JTextField textField = new JTextField();
+
+        switch (column) {
+            case 0:
+                textField.setName("Label");
+                return new CustomCellEditor(textField);
+            case 1:
+                textField.setName("Amount");
+                return new CustomCellEditor(textField);
+            case 2:
+                textField.setName("Date");
+                return new CustomCellEditor(textField);
+            case 3:
+                return new DefaultCellEditor(new JComboBox<>(itemList.toArray()));
+            default:
+                return super.getCellEditor(row, column);
         }
     }
 
