@@ -10,8 +10,7 @@ import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 
 // represents a JDialog used to display pie charts
@@ -60,28 +59,24 @@ public class PieChartDialog extends JDialog {
     }
 
     /*
-     * EFFECTS: calculates the total amount spent on each Item category in itemList
-     *          returns total as a list of Category objects
+     * EFFECTS: for each elem in itemList
+     *            category = elem.getCategory()
+     *            if category is a key in map
+     *              - set "mapValue" to map.get(category)
+     *            map.put(category, mapValue + elem.getAmount())
+     *          return map
      */
-    private List<Category> computeAmounts(List<Item> itemList) {
-        List<Category> categoryList = new ArrayList<>();
+    private HashMap<String, Double> computeAmounts(List<Item> itemList) {
+        HashMap<String, Double> map = new HashMap<>();
         for (Item elem : itemList) {
-            Category currentCategory = new Category(elem.getCategory(), elem.getAmount());
-            Iterator<Category> it = categoryList.iterator();
-            boolean contains = false;
-            while (it.hasNext()) {
-                Category existingCategory = it.next();
-                if (existingCategory.equals(currentCategory)) {
-                    existingCategory.amount += currentCategory.amount;
-                    contains = true;
-                    break;
-                }
+            String category = elem.getCategory();
+            double mapValue = 0;
+            if (map.containsKey(category)) {
+                mapValue = map.get(category);
             }
-            if (!contains) {
-                categoryList.add(currentCategory);
-            }
+            map.put(category, mapValue + elem.getAmount());
         }
-        return categoryList;
+        return map;
     }
 
     /*
@@ -95,32 +90,12 @@ public class PieChartDialog extends JDialog {
     }
 
     /*
-     * EFFECTS: creates a dataset using a list of categories
+     * EFFECTS: creates a dataset using a HashMap of categories and their amounts
      *          returns the dataset
      */
-    private PieDataset createPieDataSet(List<Category> dataList) {
+    private PieDataset createPieDataSet(HashMap<String, Double> map) {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        for (Category elem : dataList) {
-            dataset.setValue(elem.name, elem.amount);
-        }
+        map.forEach(dataset::setValue);
         return dataset;
-    }
-
-    // represents an inner class used to store category names and the total amount spent on them
-    private class Category {
-        private final String name;
-        private double amount;
-
-        public Category(String name, double amount) {
-            this.name = name;
-            this.amount = amount;
-        }
-
-        /*
-         * EFFECTS: returns whether this and category have the same name
-         */
-        public boolean equals(Category category) {
-            return this.name.equals(category.name);
-        }
     }
 }
