@@ -10,16 +10,16 @@ import java.util.ArrayList;
 public abstract class Item implements Comparable<Item>, Writable {
 
     // default values for variables below (used by zero-argument constructors and objects in sub-classes and tests)
-    protected static final String DEFAULT_CATEGORY = "uncategorized";
-    protected static final LocalDate DEFAULT_DATE = LocalDate.now();
-    protected static final String DEFAULT_LABEL = "New Item";
-    protected static final double DEFAULT_AMOUNT = 0;
+    public static final String DEFAULT_CATEGORY = "uncategorized";
+    public static final LocalDate DEFAULT_DATE = LocalDate.now();
+    public static final String DEFAULT_LABEL = "New Item";
+    public static final double DEFAULT_AMOUNT = 0;
 
     private String label;               // description of the Item
     private double amount;              // value of Item (in dollars)
     private LocalDate date;             // date of transaction for the Item (format: yyyy-mm-dd)
     private String category;            // stores the category of the Item (eg: "Healthcare" or "Education")
-                                        // objects can only have one category
+    // objects can only have one category
 
     /*
      * REQUIRES: label has a non-zero length

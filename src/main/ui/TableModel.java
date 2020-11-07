@@ -12,7 +12,7 @@ import java.util.ArrayList;
 // represents a subclass of AbstractTableModel to be used as a model for a JTable
 public class TableModel extends AbstractTableModel {
 
-    private final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
+    protected final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
     CashFlowAccount cashFlowAccount;
 
     /*
@@ -74,10 +74,8 @@ public class TableModel extends AbstractTableModel {
     public ArrayList<String> getCategoryList(int row) {
         if (getValueAt(row, 4).equals("IncomeItem")) {
             return IncomeItem.categories;
-        } else if (getValueAt(row, 4).equals("ExpenseItem")) {
-            return ExpenseItem.categories;
         }
-        return null;
+        return ExpenseItem.categories;
     }
 
     public boolean isCellEditable(int row, int col) {
