@@ -1,9 +1,4 @@
-package ui;
-
-import model.CashFlowAccount;
-import model.ExpenseItem;
-import model.IncomeItem;
-import model.Item;
+package model;
 
 import javax.swing.table.AbstractTableModel;
 import java.time.LocalDate;
@@ -12,7 +7,7 @@ import java.util.ArrayList;
 // represents a subclass of AbstractTableModel to be used as a model for a JTable
 public class TableModel extends AbstractTableModel {
 
-    protected final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
+    public final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
     CashFlowAccount cashFlowAccount;
 
     /*

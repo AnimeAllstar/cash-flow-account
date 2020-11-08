@@ -1,9 +1,5 @@
-package ui;
+package model;
 
-import model.CashFlowAccount;
-import model.ExpenseItem;
-import model.IncomeItem;
-import model.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

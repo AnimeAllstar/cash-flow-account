@@ -2,6 +2,7 @@ package ui;
 
 import model.CashFlowAccount;
 import model.Item;
+import model.TableModel;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 

@@ -1,6 +1,7 @@
 package ui;
 
 import model.Item;
+import model.TableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
