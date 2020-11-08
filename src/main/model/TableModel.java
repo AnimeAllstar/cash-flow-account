@@ -98,6 +98,9 @@ public class TableModel extends AbstractTableModel {
             case 3:
                 item.setCategory((String) value);
                 break;
+            default:
+                //Invalid col
+                break;
         }
         cashFlowAccount.sortItems();
         fireTableDataChanged();

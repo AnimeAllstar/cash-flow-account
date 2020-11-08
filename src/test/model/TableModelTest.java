@@ -40,6 +40,7 @@ public class TableModelTest {
         model.setValueAt(String.valueOf(testExpense.getAmount()), 0, 1);
         model.setValueAt(String.valueOf(testExpense.getDate()), 0, 2);
         model.setValueAt(testExpense.getCategory(), 0, 3);
+        model.setValueAt("Invalid col", 0, 4);
         testGetValueAt(testExpense);
         IncomeItem testIncome = new IncomeItem();
         model.addRow(testIncome);
