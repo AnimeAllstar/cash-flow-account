@@ -15,6 +15,7 @@ public class SwingUI implements ActionListener {
     private JFrame frame;
     private MainPanel mainPanel;
     private AddItemDialog addItemDialog;
+    private PieChartDialog pieChartDialog;
 
     public SwingUI() {
         initializeGlobal();
@@ -34,6 +35,10 @@ public class SwingUI implements ActionListener {
         frame.setVisible(true);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initializes global variables
+     */
     public void initializeGlobal() {
         frame = new JFrame("Cash Flow Account");
         mainPanel = new MainPanel();
@@ -124,7 +129,7 @@ public class SwingUI implements ActionListener {
      * EFFECTS: creates a new PieChartDialog
      */
     public void createPieChartDialog() {
-        PieChartDialog pieChartDialog = new PieChartDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL,
+        pieChartDialog = new PieChartDialog(frame, Dialog.ModalityType.DOCUMENT_MODAL,
                 ((TableModel) mainPanel.table.getModel()).getCashFlowAccount());
         pieChartDialog.setLocationRelativeTo(frame);
         pieChartDialog.setVisible(true);

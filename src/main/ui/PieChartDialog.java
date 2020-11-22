@@ -12,11 +12,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // represents a JDialog used to display pie charts
 public class PieChartDialog extends JDialog {
-    private List<Item> incomeItems;
-    private List<Item> expenseItems;
 
     private PieDataset dataset;
     private JTabbedPane tabbedPane;
@@ -30,18 +29,19 @@ public class PieChartDialog extends JDialog {
         super(frame, "Pie Chart", modeless);
         this.setMinimumSize(new Dimension(550, 500));
 
-        initializeGlobal(account);
-        addChartsToTabbedPane();
+        initializeGlobal();
+
+        addChartToTabbedPane("Income Items", account.getItemList("IncomeItem"));
+        addChartToTabbedPane("Expense Items", account.getItemList("ExpenseItem"));
         setContentPane(tabbedPane);
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: adds panels to tabbedPane
+     * EFFECTS: adds a ChartPanel to tabbedPane
      */
-    private void addChartsToTabbedPane() {
-        tabbedPane.addTab("Income Items", createPanel(incomeItems, "Income Items"));
-        tabbedPane.addTab("Expense Items", createPanel(expenseItems, "Expense Items"));
+    private void addChartToTabbedPane(String title, List<Item> items) {
+        tabbedPane.addTab(title, createPanel(items, title));
     }
 
     /*
@@ -66,8 +66,8 @@ public class PieChartDialog extends JDialog {
      *            map.put(category, mapValue + elem.getAmount())
      *          return map
      */
-    private HashMap<String, Double> computeAmounts(List<Item> itemList) {
-        HashMap<String, Double> map = new HashMap<>();
+    private Map<String, Double> computeAmounts(List<Item> itemList) {
+        Map<String, Double> map = new HashMap<>();
         for (Item elem : itemList) {
             String category = elem.getCategory();
             double mapValue = 0;
@@ -80,20 +80,19 @@ public class PieChartDialog extends JDialog {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: initializes global variables
      */
-    private void initializeGlobal(CashFlowAccount account) {
+    private void initializeGlobal() {
         dataset = new DefaultPieDataset();
         tabbedPane = new JTabbedPane();
-        incomeItems = account.getItemList("IncomeItem");
-        expenseItems = account.getItemList("ExpenseItem");
     }
 
     /*
-     * EFFECTS: creates a dataset using a HashMap of categories and their amounts
+     * EFFECTS: creates a dataset using a Map of categories and their amounts
      *          returns the dataset
      */
-    private PieDataset createPieDataSet(HashMap<String, Double> map) {
+    private PieDataset createPieDataSet(Map<String, Double> map) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         map.forEach(dataset::setValue);
         return dataset;

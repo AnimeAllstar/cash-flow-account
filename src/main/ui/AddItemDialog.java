@@ -30,7 +30,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JPanel labelPane;
     private JPanel fieldPane;
     private JButton addBtn;
-    private Item newItem;
+    private CustomVerifier verifier;
 
     /*
      * EFFECTS: calls super constructor
@@ -63,7 +63,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
      * EFFECTS: returns newItem
      */
     public Item getValue() {
-        return newItem;
+        return createItem();
     }
 
     /*
@@ -119,6 +119,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
         addBtn = new JButton("Add Item");
         addBtn.addActionListener(e -> addBtnListener());
 
+        verifier = new CustomVerifier();
         validateFieldList = new ArrayList<>();
         validateFieldList.add(labelField);
         validateFieldList.add(amountField);
@@ -146,12 +147,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
     /*
      * MODIFIES: this
      * EFFECTS: if user inputs are valid
-     *            - create item user inputs
      *            - close this
      */
     public void addBtnListener() {
         if (validateInputs()) {
-            createItem();
             close();
         }
     }
@@ -161,7 +160,6 @@ public class AddItemDialog extends JDialog implements ItemListener {
      *          otherwise, return true
      */
     private boolean validateInputs() {
-        CustomVerifier verifier = new CustomVerifier();
         for (JComponent field : validateFieldList) {
             if (!verifier.shouldYieldFocus(field)) {
                 return false;
@@ -172,14 +170,14 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     /*
      * MODIFIES: this
-     * EFFECTS: initializes newItem using user inputs
+     * EFFECTS: returns new Item using user inputs
      */
-    public void createItem() {
+    public Item createItem() {
         if (Objects.equals(typeComboBox.getSelectedItem(), "IncomeItem")) {
-            newItem = new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+            return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                     LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
-        } else if (Objects.equals(typeComboBox.getSelectedItem(), "ExpenseItem")) {
-            newItem = new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+        } else {
+            return new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                     LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
         }
     }
