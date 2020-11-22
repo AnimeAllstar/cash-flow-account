@@ -9,7 +9,7 @@ import java.util.Arrays;
 // it stores a list of categories that any object of the class can have
 public class IncomeItem extends Item {
 
-    public static ArrayList<String> categories = new ArrayList<>(Arrays.asList(DEFAULT_CATEGORY, "paycheck",
+    public static final ArrayList<String> CATEGORIES = new ArrayList<>(Arrays.asList(DEFAULT_CATEGORY, "paycheck",
             "bonus", "investment"));
 
     // zero-argument constructor

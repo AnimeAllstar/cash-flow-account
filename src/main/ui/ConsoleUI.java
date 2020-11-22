@@ -219,9 +219,9 @@ public class ConsoleUI {
     private ArrayList<String> printCategories(String className) {
         ArrayList<String> categories;
         if (className.equals("IncomeItem")) {
-            categories = IncomeItem.categories;
+            categories = IncomeItem.CATEGORIES;
         } else {
-            categories = ExpenseItem.categories;
+            categories = ExpenseItem.CATEGORIES;
         }
         int count = 1;
         for (String elem : categories) {

@@ -60,13 +60,6 @@ public class AddItemDialog extends JDialog implements ItemListener {
     }
 
     /*
-     * EFFECTS: returns newItem
-     */
-    public Item getValue() {
-        return createItem();
-    }
-
-    /*
      * MODIFIES: this
      * EFFECTS: initializes JLabels
      */
@@ -104,7 +97,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private void initializeComponents() {
         labelField = new JTextField();
         labelField.setName("Label");
-        categoryComboBox = new JComboBox<>(IncomeItem.categories.toArray());
+        categoryComboBox = new JComboBox<>(IncomeItem.CATEGORIES.toArray());
         typeComboBox = new JComboBox<>(itemTypes);
         typeComboBox.addItemListener(this);
 
@@ -135,10 +128,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             DefaultComboBoxModel<Object> model = null;
             String type = (String) e.getItem();
-            if (type.equals("IncomeItem")) {
-                model = new DefaultComboBoxModel<>(IncomeItem.categories.toArray());
-            } else if (type.equals("ExpenseItem")) {
-                model = new DefaultComboBoxModel<>(ExpenseItem.categories.toArray());
+            if (type.equals(itemTypes[0])) {
+                model = new DefaultComboBoxModel<>(IncomeItem.CATEGORIES.toArray());
+            } else if (type.equals(itemTypes[1])) {
+                model = new DefaultComboBoxModel<>(ExpenseItem.CATEGORIES.toArray());
             }
             categoryComboBox.setModel(model);
         }
@@ -172,8 +165,8 @@ public class AddItemDialog extends JDialog implements ItemListener {
      * MODIFIES: this
      * EFFECTS: returns new Item using user inputs
      */
-    public Item createItem() {
-        if (Objects.equals(typeComboBox.getSelectedItem(), "IncomeItem")) {
+    public Item getValue() {
+        if (Objects.equals(typeComboBox.getSelectedItem(), itemTypes[0])) {
             return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                     LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
         } else {

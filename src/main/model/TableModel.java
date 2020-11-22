@@ -7,7 +7,7 @@ import java.util.ArrayList;
 // represents a subclass of AbstractTableModel to be used as a model for a JTable
 public class TableModel extends AbstractTableModel {
 
-    public final String[] columnNames = {"Label", "Amount", "Date", "Category", "Type"};
+    public static final String[] COLUMN_NAMES = {"Label", "Amount", "Date", "Category", "Type"};
     CashFlowAccount cashFlowAccount;
 
     /*
@@ -31,11 +31,11 @@ public class TableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return COLUMN_NAMES.length;
     }
 
     public String getColumnName(int col) {
-        return columnNames[col];
+        return COLUMN_NAMES[col];
     }
 
     public Class getColumnClass(int col) {
@@ -68,11 +68,15 @@ public class TableModel extends AbstractTableModel {
      */
     public ArrayList<String> getCategoryList(int row) {
         if (getValueAt(row, 4).equals("IncomeItem")) {
-            return IncomeItem.categories;
+            return IncomeItem.CATEGORIES;
         }
-        return ExpenseItem.categories;
+        return ExpenseItem.CATEGORIES;
     }
 
+    /*
+     * REQUIRES: col >= 0
+     * EFFECTS: returns col < 4 (columns with index less than 4 can be edited)
+     */
     public boolean isCellEditable(int row, int col) {
         return col < 4;
     }

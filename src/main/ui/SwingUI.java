@@ -45,6 +45,7 @@ public class SwingUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: JMenuBar menuBar = new JMenuBar()
      * EFFECTS: returns a menuBar with fileMenu, toolMenu and analyseMenu
      */
     private JMenuBar addMenuBar() {
@@ -56,6 +57,7 @@ public class SwingUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: JMenu menu = new JMenu("File")
      * EFFECTS: returns a menu with save and revert menuItems
      */
     private JMenu fileMenu() {
@@ -75,6 +77,7 @@ public class SwingUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: JMenu menu = new JMenu("Tools")
      * EFFECTS: returns a menu with an add menuItem
      */
     private JMenu toolMenu() {
@@ -89,6 +92,7 @@ public class SwingUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: JMenu menu = new JMenu("Analyse")
      * EFFECTS: returns a menu with an pieChart menuItem
      */
     private JMenu analyseMenu() {
@@ -126,6 +130,7 @@ public class SwingUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: creates a new PieChartDialog
      */
     public void createPieChartDialog() {

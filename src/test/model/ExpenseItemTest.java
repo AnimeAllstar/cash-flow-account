@@ -15,7 +15,7 @@ class ExpenseItemTest extends ItemTest {
 
     @Test
     public void testSetCategories() {
-        super.testSetCategories(ExpenseItem.categories);
+        super.testSetCategories(ExpenseItem.CATEGORIES);
     }
 
     @Test

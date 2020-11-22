@@ -38,14 +38,14 @@ public class PieChartDialog extends JDialog {
 
     /*
      * MODIFIES: this
-     * EFFECTS: adds a ChartPanel to tabbedPane
+     * EFFECTS: adds a Panel to tabbedPane
      */
     private void addChartToTabbedPane(String title, List<Item> items) {
         tabbedPane.addTab(title, createPanel(items, title));
     }
 
     /*
-     * EFFECTS: returns new CharPanel
+     * EFFECTS: returns new ChartPanel
      */
     private JPanel createPanel(List<Item> items, String title) {
         return new ChartPanel(createChart(createPieDataSet(computeAmounts(items)), title));
@@ -59,6 +59,7 @@ public class PieChartDialog extends JDialog {
     }
 
     /*
+     * MODIFIES: Map<String, Double> map = new HashMap<>()
      * EFFECTS: for each elem in itemList
      *            category = elem.getCategory()
      *            if category is a key in map
@@ -89,6 +90,7 @@ public class PieChartDialog extends JDialog {
     }
 
     /*
+     * MODIFIES: DefaultPieDataset dataset = new DefaultPieDataset()
      * EFFECTS: creates a dataset using a Map of categories and their amounts
      *          returns the dataset
      */

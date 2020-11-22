@@ -72,9 +72,9 @@ public class TableModelTest {
     @Test
     void testGetCategory() {
         model.addRow(new IncomeItem());
-        assertEquals(model.getCategoryList(0), IncomeItem.categories);
+        assertEquals(model.getCategoryList(0), IncomeItem.CATEGORIES);
         model.addRow(new ExpenseItem());
-        assertEquals(model.getCategoryList(1), ExpenseItem.categories);
+        assertEquals(model.getCategoryList(1), ExpenseItem.CATEGORIES);
         model.addRow(new IncomeItem());
     }
 
@@ -82,7 +82,7 @@ public class TableModelTest {
     void testGetColumnNameAndClass() {
         model.addRow(new IncomeItem());
         for (int i = 0; i < model.getColumnCount(); i++) {
-            assertEquals(model.columnNames[i], model.getColumnName(i));
+            assertEquals(TableModel.COLUMN_NAMES[i], model.getColumnName(i));
             assertEquals(model.getColumnClass(i), model.getValueAt(0, i).getClass());
         }
     }
