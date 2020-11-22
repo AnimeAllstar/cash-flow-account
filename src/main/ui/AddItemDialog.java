@@ -31,6 +31,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JPanel fieldPane;
     private JButton addBtn;
     private CustomVerifier verifier;
+    private boolean itemAdded;
 
     /*
      * EFFECTS: calls super constructor
@@ -49,14 +50,6 @@ public class AddItemDialog extends JDialog implements ItemListener {
         this.add(fieldPane, BorderLayout.CENTER);
         this.add(labelPane, BorderLayout.WEST);
         this.add(addBtn, BorderLayout.PAGE_END);
-    }
-
-    /*
-     * MODIFIES: this
-     * EFFECTS: closes this
-     */
-    public void close() {
-        this.dispose();
     }
 
     /*
@@ -117,6 +110,8 @@ public class AddItemDialog extends JDialog implements ItemListener {
         validateFieldList.add(labelField);
         validateFieldList.add(amountField);
         validateFieldList.add(dateField);
+
+        itemAdded = false;
     }
 
     /*
@@ -140,11 +135,13 @@ public class AddItemDialog extends JDialog implements ItemListener {
     /*
      * MODIFIES: this
      * EFFECTS: if user inputs are valid
+     *            - itemAdded = true
      *            - close this
      */
     public void addBtnListener() {
         if (validateInputs()) {
-            close();
+            itemAdded = true;
+            this.dispose();
         }
     }
 
@@ -163,15 +160,18 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     /*
      * MODIFIES: this
-     * EFFECTS: returns new Item using user inputs
+     * EFFECTS: returns new Item using user inputs if an item was added
      */
     public Item getValue() {
-        if (Objects.equals(typeComboBox.getSelectedItem(), itemTypes[0])) {
-            return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
-                    LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
-        } else {
-            return new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
-                    LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
+        if (itemAdded) {
+            if (Objects.equals(typeComboBox.getSelectedItem(), itemTypes[0])) {
+                return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                        LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
+            } else {
+                return new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                        LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
+            }
         }
+        return null;
     }
 }
