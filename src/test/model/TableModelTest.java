@@ -27,6 +27,7 @@ public class TableModelTest {
 
     @Test
     void testIsEditable() {
+        assertFalse(model.isCellEditable(0, -1));
         assertFalse(model.isCellEditable(0, model.getColumnCount()));
         assertFalse(model.isCellEditable(0, model.getColumnCount() - 1));
         assertTrue(model.isCellEditable(0, model.getColumnCount() - 2));
