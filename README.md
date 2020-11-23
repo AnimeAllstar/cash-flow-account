@@ -26,9 +26,9 @@ Above is the UML diagram for this project. It does **not** include classes from 
 
 ### Phase 4: Task 2
  
- I use the Map interface in the PieChartDialog class. It is used to store the total amount spent/earned (Double - value) from each category (String - key). The computeAmounts method uses a Map to compute to the total amount spent using a list of items, and the createPieDataSet uses the Map to create a DataSet for the pie chart.
+I use the Map interface in the PieChartDialog class. It is used to store the total amount spent/earned (Double - value) from each category (String - key). The computeAmounts method uses a Map to compute to the total amount spent using a list of items, and the createPieDataSet uses the Map to create a DataSet for the pie chart.
  
- I have implemented an inheritance relationship with Item as the super class, and ExpenseItem and IncomeItem as the subclasses. Each subclass has its own static arraylist of categories that are used to categorize the users' income/expense. Furthermore, each subclass overrides the getClassName abstract method in the Item class. This method is used in the CashFlowAccount class to filter items based on type, and in the TableModel class to display the item type to the user via a column in the JTable.
+I have implemented an inheritance relationship with Item as the super class, and ExpenseItem and IncomeItem as the subclasses. Each subclass has its own static arraylist of categories that are used to categorize the users' income/expense. Furthermore, each subclass overrides the getClassName abstract method in the Item class. This method is used in the CashFlowAccount class to filter items based on type, and in the TableModel class to display the item type to the user via a column in the JTable.
 
 ### Phase 4: Task 3
 
@@ -39,4 +39,4 @@ However, if I did have more time, I would consider the following improvements to
  - Creating some sort of type hierarchy in my UI package to try to group common behaviour between classes like AddItemDialog and MainPanel.
  - Using iterators to improve the efficiency of existing code.
  - Splitting CustomVerifier into 2 classes, one to display error messages, and the other one to actually complete validation checks and throw exceptions.
-
+ - Refactoring a DefaultTableCellRenderer subclass to format the JTable in MainPanel.
