@@ -15,7 +15,6 @@ import java.util.Objects;
 // represents a JDialog used to add new items
 public class AddItemDialog extends JDialog implements ItemListener {
 
-    private final String[] itemTypes = {"IncomeItem", "ExpenseItem"};
     private ArrayList<JComponent> validateFieldList;
     private JLabel amountLabel;
     private JLabel labelLabel;
@@ -26,7 +25,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
     private JTextField dateField;
     private JTextField amountField;
     private JComboBox<Object> categoryComboBox;
-    private JComboBox<String> typeComboBox;
+    private JComboBox<Object> typeComboBox;
     private JPanel labelPane;
     private JPanel fieldPane;
     private JButton addBtn;
@@ -91,7 +90,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
         labelField = new JTextField();
         labelField.setName("Label");
         categoryComboBox = new JComboBox<>(IncomeItem.CATEGORIES.toArray());
-        typeComboBox = new JComboBox<>(itemTypes);
+        typeComboBox = new JComboBox<>(Item.ITEMS_TYPES.toArray());
         typeComboBox.addItemListener(this);
 
         amountField = new JTextField();
@@ -123,9 +122,9 @@ public class AddItemDialog extends JDialog implements ItemListener {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             DefaultComboBoxModel<Object> model = null;
             String type = (String) e.getItem();
-            if (type.equals(itemTypes[0])) {
+            if (type.equals(IncomeItem.CLASS_NAME)) {
                 model = new DefaultComboBoxModel<>(IncomeItem.CATEGORIES.toArray());
-            } else if (type.equals(itemTypes[1])) {
+            } else if (type.equals(ExpenseItem.CLASS_NAME)) {
                 model = new DefaultComboBoxModel<>(ExpenseItem.CATEGORIES.toArray());
             }
             categoryComboBox.setModel(model);
@@ -160,14 +159,16 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     /*
      * MODIFIES: this
-     * EFFECTS: returns new Item using user inputs if an item was added
+     * EFFECTS: if an item was added
+     *            - returns new Item using user inputs
+     *          otherwise, returns null
      */
-    public Item getValue() {
+    public Item getNewItem() {
         if (itemAdded) {
-            if (Objects.equals(typeComboBox.getSelectedItem(), itemTypes[0])) {
+            if (Objects.equals(typeComboBox.getSelectedItem(), IncomeItem.CLASS_NAME)) {
                 return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                         LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
-            } else {
+            } else if (Objects.equals(typeComboBox.getSelectedItem(), ExpenseItem.CLASS_NAME)) {
                 return new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
                         LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
             }

@@ -97,7 +97,6 @@ public class CustomVerifier extends InputVerifier {
         return false;
     }
 
-
     public void setErrorDetails(String title, String message) {
         this.title = title;
         this.message = message;

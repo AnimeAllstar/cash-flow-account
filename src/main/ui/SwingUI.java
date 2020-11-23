@@ -155,8 +155,8 @@ public class SwingUI implements ActionListener {
      * EFFECTS: if user added a new item, add the new to the table in mainPanel
      */
     public void getItemFromDialog() {
-        if (addItemDialog.getValue() != null) {
-            mainPanel.addRow(addItemDialog.getValue());
+        if (addItemDialog.getNewItem() != null) {
+            mainPanel.addRow(addItemDialog.getNewItem());
         }
     }
 }

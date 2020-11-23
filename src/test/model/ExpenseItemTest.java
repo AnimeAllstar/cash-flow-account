@@ -30,7 +30,7 @@ class ExpenseItemTest extends ItemTest {
 
     @Test
     public void testGetClassName() {
-        assertEquals("ExpenseItem", item.getClassName());
+        assertEquals(ExpenseItem.CLASS_NAME, item.getClassName());
     }
 
 }

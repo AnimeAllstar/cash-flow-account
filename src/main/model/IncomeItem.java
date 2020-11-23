@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,8 @@ public class IncomeItem extends Item {
 
     public static final ArrayList<String> CATEGORIES = new ArrayList<>(Arrays.asList(DEFAULT_CATEGORY, "paycheck",
             "bonus", "investment"));
+
+    public static final String CLASS_NAME = "IncomeItem";
 
     // zero-argument constructor
     // EFFECTS: passes default variables to this(String, double, LocalDate, String)
@@ -30,8 +34,12 @@ public class IncomeItem extends Item {
     }
 
     @Override
-    public String getClassName() {
-        return "IncomeItem";
+    public JSONObject toJson(String type) {
+        return super.toJson(CLASS_NAME);
     }
 
+    @Override
+    public String getClassName() {
+        return CLASS_NAME;
+    }
 }

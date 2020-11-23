@@ -1,6 +1,8 @@
 package persistence;
 
 import model.CashFlowAccount;
+import model.ExpenseItem;
+import model.IncomeItem;
 import model.Item;
 import org.junit.jupiter.api.Test;
 
@@ -43,8 +45,8 @@ class JsonReaderTest extends persistence.JsonTest {
             CashFlowAccount acc = reader.read();
             List<Item> itemList = acc.getItemList();
             assertEquals(2, itemList.size());
-            checkItem("tuition fees", (double) 20000, "2020-02-20", "education", "ExpenseItem", itemList.get(0));
-            checkItem("google stocks", (double) 5000, "2015-10-20", "investment", "IncomeItem", itemList.get(1));
+            checkItem("tuition fees", (double) 20000, "2020-02-20", "education", ExpenseItem.CLASS_NAME, itemList.get(0));
+            checkItem("google stocks", (double) 5000, "2015-10-20", "investment", IncomeItem.CLASS_NAME, itemList.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file. IOException Caught, none expected.");
         }

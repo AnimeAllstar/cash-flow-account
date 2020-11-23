@@ -1,6 +1,8 @@
 package ui;
 
 import model.CashFlowAccount;
+import model.ExpenseItem;
+import model.IncomeItem;
 import model.Item;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -17,7 +19,6 @@ import java.util.Map;
 // represents a JDialog used to display pie charts
 public class PieChartDialog extends JDialog {
 
-    private PieDataset dataset;
     private JTabbedPane tabbedPane;
 
     /*
@@ -31,8 +32,8 @@ public class PieChartDialog extends JDialog {
 
         initializeGlobal();
 
-        addChartToTabbedPane("Income Items", account.getItemList("IncomeItem"));
-        addChartToTabbedPane("Expense Items", account.getItemList("ExpenseItem"));
+        addChartToTabbedPane("Income Items", account.getItemList(IncomeItem.CLASS_NAME));
+        addChartToTabbedPane("Expense Items", account.getItemList(ExpenseItem.CLASS_NAME));
         setContentPane(tabbedPane);
     }
 
@@ -85,7 +86,6 @@ public class PieChartDialog extends JDialog {
      * EFFECTS: initializes global variables
      */
     private void initializeGlobal() {
-        dataset = new DefaultPieDataset();
         tabbedPane = new JTabbedPane();
     }
 

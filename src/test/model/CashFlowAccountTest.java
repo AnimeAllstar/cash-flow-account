@@ -19,16 +19,16 @@ class CashFlowAccountTest {
     public void testGetItemList() {
 
         assertEquals(0, cashFlowAccount.size());
-        assertEquals(0, cashFlowAccount.getItemList("IncomeItem").size());
-        assertEquals(0, cashFlowAccount.getItemList("ExpenseItem").size());
+        assertEquals(0, cashFlowAccount.getItemList(IncomeItem.CLASS_NAME).size());
+        assertEquals(0, cashFlowAccount.getItemList(ExpenseItem.CLASS_NAME).size());
 
         cashFlowAccount.addItem(new IncomeItem());
         cashFlowAccount.addItem(new ExpenseItem());
         cashFlowAccount.addItem(new ExpenseItem());
 
         assertEquals(3, cashFlowAccount.size());
-        assertEquals(1, cashFlowAccount.getItemList("IncomeItem").size());
-        assertEquals(2, cashFlowAccount.getItemList("ExpenseItem").size());
+        assertEquals(1, cashFlowAccount.getItemList(IncomeItem.CLASS_NAME).size());
+        assertEquals(2, cashFlowAccount.getItemList(ExpenseItem.CLASS_NAME).size());
 
     }
 

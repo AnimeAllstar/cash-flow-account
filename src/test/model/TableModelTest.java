@@ -65,8 +65,8 @@ public class TableModelTest {
         assertEquals(3, model.getRowCount());
         model.removeRow(1);
         assertEquals(2, model.getRowCount());
-        assertEquals(model.getValueAt(0, 4), "IncomeItem");
-        assertEquals(model.getValueAt(1, 4), "IncomeItem");
+        assertEquals(model.getValueAt(0, 4), IncomeItem.CLASS_NAME);
+        assertEquals(model.getValueAt(1, 4), IncomeItem.CLASS_NAME);
     }
 
     @Test

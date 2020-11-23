@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 // Represents a writer that writes JSON representation of CashFlowAccount to file
 // Adapted from JsonSerializationDemo
 public class JsonWriter {
+    protected static final String TAG = "Items";
     private static final int TAB = 4;
     private final String destination;
 
@@ -23,7 +24,7 @@ public class JsonWriter {
     //          throws FileNotFoundException if destination file cannot be written to
     public void write(CashFlowAccount acc) throws FileNotFoundException {
         try (PrintWriter pw = new PrintWriter(new File(destination))) {
-            JSONObject json = acc.toJson();
+            JSONObject json = acc.toJson(TAG);
             pw.print(json.toString(TAB));
         }
     }

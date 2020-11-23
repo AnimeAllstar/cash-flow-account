@@ -1,32 +1,95 @@
 {
-  "items": [
-    {
-      "date": "3000-10-10",
-      "amount": 2239,
-      "label": "testItem",
-      "type": "IncomeItem",
-      "category": "paycheck"
-    },
+  "Items": [
     {
       "date": "2020-10-10",
       "amount": 2020,
-      "label": "frf",
+      "label": "Nuwdwd",
       "type": "ExpenseItem",
-      "category": "travel"
+      "category": "shopping"
     },
     {
-      "date": "2020-10-10",
-      "amount": 300,
-      "label": "eeef",
+      "date": "2020-02-20",
+      "amount": 2020,
+      "label": "twtw",
+      "type": "ExpenseItem",
+      "category": "food and dining"
+    },
+    {
+      "date": "2000-12-01",
+      "amount": 33,
+      "label": "fvfvfv",
+      "type": "IncomeItem",
+      "category": "uncategorized"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 1375,
+      "label": "ffsws",
       "type": "ExpenseItem",
       "category": "shopping"
     },
     {
       "date": "2000-10-10",
-      "amount": 2020,
-      "label": "rfrf",
+      "amount": 1000,
+      "label": "ddrf",
+      "type": "ExpenseItem",
+      "category": "entertainment"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 500,
+      "label": "dcd",
       "type": "IncomeItem",
       "category": "investment"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 500,
+      "label": "rffrf",
+      "type": "ExpenseItem",
+      "category": "healthcare"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 235,
+      "label": "tgrg",
+      "type": "IncomeItem",
+      "category": "uncategorized"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 202,
+      "label": "ded",
+      "type": "IncomeItem",
+      "category": "uncategorized"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 33,
+      "label": "r4r",
+      "type": "IncomeItem",
+      "category": "bonus"
+    },
+    {
+      "date": "2000-10-10",
+      "amount": 33,
+      "label": "btr",
+      "type": "IncomeItem",
+      "category": "uncategorized"
+    },
+    {
+      "date": "0202-01-01",
+      "amount": 204,
+      "label": "y6y",
+      "type": "IncomeItem",
+      "category": "paycheck"
+    },
+    {
+      "date": "0200-10-01",
+      "amount": 2204,
+      "label": "flr,fl",
+      "type": "ExpenseItem",
+      "category": "education"
     }
   ]
 }

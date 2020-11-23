@@ -53,7 +53,7 @@ public class JsonReader {
     // MODIFIES: acc
     // EFFECTS: parses items from JSON object and adds them to CashFlowAccount
     private void addItems(CashFlowAccount acc, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("items");
+        JSONArray jsonArray = jsonObject.getJSONArray(JsonWriter.TAG);
         for (Object json : jsonArray) {
             JSONObject nextThingy = (JSONObject) json;
             addItem(acc, nextThingy);
@@ -64,7 +64,7 @@ public class JsonReader {
     // EFFECTS: parses Item from JSON object and adds it to CashFlowAccount
     private void addItem(CashFlowAccount acc, JSONObject jsonObject) {
         Item item;
-        if (jsonObject.getString("type").equals("IncomeItem")) {
+        if (jsonObject.getString("type").equals(IncomeItem.CLASS_NAME)) {
             item = new IncomeItem();
         } else {
             item = new ExpenseItem();

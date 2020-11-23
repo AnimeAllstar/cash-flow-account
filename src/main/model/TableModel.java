@@ -67,18 +67,17 @@ public class TableModel extends AbstractTableModel {
      * EFFECTS: returns a list of categories based on the type of Item in row
      */
     public ArrayList<String> getCategoryList(int row) {
-        if (getValueAt(row, 4).equals("IncomeItem")) {
+        if (getValueAt(row, 4).equals(IncomeItem.CLASS_NAME)) {
             return IncomeItem.CATEGORIES;
         }
         return ExpenseItem.CATEGORIES;
     }
 
     /*
-     * REQUIRES: col >= 0
      * EFFECTS: returns col < 4 (columns with index less than 4 can be edited)
      */
     public boolean isCellEditable(int row, int col) {
-        return col < 4;
+        return col < 4 && col >= 0;
     }
 
     /*

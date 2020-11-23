@@ -5,6 +5,8 @@ import persistence.Writable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 // represents an Item having an label, date, category and amount (in dollars)
 public abstract class Item implements Comparable<Item>, Writable {
@@ -15,11 +17,13 @@ public abstract class Item implements Comparable<Item>, Writable {
     public static final String DEFAULT_LABEL = "New Item";
     public static final double DEFAULT_AMOUNT = 0;
 
+    public static final List<String> ITEMS_TYPES = new ArrayList<>(Arrays.asList(IncomeItem.CLASS_NAME,
+            ExpenseItem.CLASS_NAME));
+
     private String label;               // description of the Item
     private double amount;              // value of Item (in dollars)
     private LocalDate date;             // date of transaction for the Item (format: yyyy-mm-dd)
     private String category;            // stores the category of the Item (eg: "Healthcare" or "Education")
-    // objects can only have one category
 
     /*
      * REQUIRES: label has a non-zero length
@@ -52,8 +56,6 @@ public abstract class Item implements Comparable<Item>, Writable {
             return (int) ((temp > 0) ? Math.ceil(temp) : Math.floor(temp));
         }
     }
-
-    public abstract String getClassName();
 
     public double getAmount() {
         return amount;
@@ -113,13 +115,15 @@ public abstract class Item implements Comparable<Item>, Writable {
     }
 
     @Override
-    public JSONObject toJson() {
+    public JSONObject toJson(String type) {
         JSONObject json = new JSONObject();
-        json.put("type", getClassName());
+        json.put("type", type);
         json.put("label", getLabel());
         json.put("amount", getAmount());
         json.put("date", getDate());
         json.put("category", getCategory());
         return json;
     }
+
+    public abstract String getClassName();
 }

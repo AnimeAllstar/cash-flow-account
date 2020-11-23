@@ -19,7 +19,6 @@ public class CashFlowAccount implements Writable {
     }
 
     /*
-     * REQUIRES: filterBy has to be equal to either "ExpenseItem" or "IncomeItem"
      * EFFECTS: creates an ArrayList of type Item called "tempList"
      *          for each element in itemList,
      *            - if the class of the element is equal to filterBy
@@ -48,7 +47,6 @@ public class CashFlowAccount implements Writable {
     }
 
     /*
-     * REQUIRES: item must not be null
      * MODIFIES: this
      * EFFECTS: adds item to itemList
      *          sort items
@@ -99,9 +97,9 @@ public class CashFlowAccount implements Writable {
     }
 
     @Override
-    public JSONObject toJson() {
+    public JSONObject toJson(String tag) {
         JSONObject json = new JSONObject();
-        json.put("items", itemsToJson());
+        json.put(tag, itemsToJson());
         return json;
     }
 
@@ -110,7 +108,7 @@ public class CashFlowAccount implements Writable {
         JSONArray jsonArray = new JSONArray();
 
         for (Item elem : itemList) {
-            jsonArray.put(elem.toJson());
+            jsonArray.put(elem.toJson(elem.getClassName()));
         }
 
         return jsonArray;
