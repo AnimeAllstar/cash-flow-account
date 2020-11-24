@@ -32,11 +32,8 @@ I have implemented an inheritance relationship with Item as the super class, and
 
 ### Phase 4: Task 3
 
-I feel like I did a good job in dividing the project into smaller classes leading to a high level of cohesion. I have also tried to reduce coupling as much as possible as I progressed from one phase to the other.
-
-However, if I did have more time, I would consider the following improvements to the design:
+If I did have more time, I would consider the following improvements to the design:
  
- - Creating some sort of type hierarchy in my UI package to try to group common behaviour between classes like AddItemDialog and MainPanel.
  - Using iterators to improve the efficiency of existing code.
  - Splitting CustomVerifier into 2 classes, one to display error messages, and the other one to actually complete validation checks and throw exceptions.
  - Refactoring a DefaultTableCellRenderer subclass to format the JTable in MainPanel.
