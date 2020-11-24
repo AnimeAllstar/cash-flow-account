@@ -32,7 +32,9 @@ I have implemented an inheritance relationship with Item as the super class, and
 
 ### Phase 4: Task 3
 
-If I did have more time, I would consider the following improvements to the design:
+I feel like I did a good job in dividing the project into smaller classes leading to a high level of cohesion. I have also tried to reduce coupling as much as possible as I progressed from one phase to the other.
+
+However, if I did have more time, I would consider the following improvements to the design:
  
  - Using iterators to improve the efficiency of existing code.
  - Splitting CustomVerifier into 2 classes, one to display error messages, and the other one to actually complete validation checks and throw exceptions.
