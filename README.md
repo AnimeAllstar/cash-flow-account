@@ -36,6 +36,5 @@ I feel like I did a good job in dividing the project into smaller classes leadin
 
 However, if I did have more time, I would consider the following improvements to the design:
  
- - Using iterators to improve the efficiency of existing code.
  - Splitting CustomVerifier into 2 classes, one to display error messages, and the other one to actually complete validation checks and throw exceptions.
  - Refactoring a DefaultTableCellRenderer subclass to format the JTable in MainPanel.
