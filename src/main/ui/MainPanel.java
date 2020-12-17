@@ -7,8 +7,12 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,8 +25,10 @@ public class MainPanel extends JPanel implements ActionListener {
     private static final String JSON_PATH = "./data/itemList.json";
     protected JTable table;
     protected JPopupMenu rightClickMenu;
+    private JTextField searchBar;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private TableRowSorter<TableModel> sorter;
 
     /*
      * EFFECTS: sets layout and preferred dimensions for this
@@ -30,17 +36,53 @@ public class MainPanel extends JPanel implements ActionListener {
      */
     public MainPanel() {
         super(new BorderLayout());
-        this.setPreferredSize(new Dimension(1000, 800));
+        this.setPreferredSize(new Dimension(950, 750));
         initializeGlobal();
         configureTable();
-        addToRightClickMenu();
+        configureSearchBar();
+        configureRightClickMenu();
+    }
+
+    private void configureSearchBar() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        searchBar.setPreferredSize(new Dimension(searchBar.getWidth(), 30));
+
+        searchBar.getDocument().addDocumentListener(
+                new DocumentListener() {
+                    public void changedUpdate(DocumentEvent e) {
+                        updateSearch();
+                    }
+
+                    public void insertUpdate(DocumentEvent e) {
+                        updateSearch();
+                    }
+
+                    public void removeUpdate(DocumentEvent e) {
+                        updateSearch();
+                    }
+                });
+
+        panel.add(searchBar, BorderLayout.CENTER);
+        panel.add(new JLabel(" Filter Description:  "), BorderLayout.WEST);
+        this.add(panel, BorderLayout.SOUTH);
+    }
+
+    private void updateSearch() {
+        RowFilter<TableModel, Object> rf;
+        try {
+            rf = RowFilter.regexFilter(searchBar.getText(), 0);
+        } catch (java.util.regex.PatternSyntaxException e) {
+            return;
+        }
+        sorter.setRowFilter(rf);
     }
 
     /*
      * MODIFIES: this
      * EFFECTS: adds rightClickMenu with a "Remove" menu item to table
      */
-    private void addToRightClickMenu() {
+    private void configureRightClickMenu() {
         JMenuItem removeItem = new JMenuItem("Remove");
         removeItem.setActionCommand("remove");
         removeItem.addActionListener(this);
@@ -56,6 +98,7 @@ public class MainPanel extends JPanel implements ActionListener {
     public void revertChanges() {
         table.setModel(new TableModel(loadData()));
         alignTableContents(SwingConstants.CENTER);
+        searchBar.setText("");
     }
 
     /*
@@ -76,6 +119,8 @@ public class MainPanel extends JPanel implements ActionListener {
         table.setFillsViewportHeight(true);
         table.setRowHeight(40);
         table.getTableHeader().setReorderingAllowed(false);
+        table.setRowSorter(sorter);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JTableHeader header = table.getTableHeader();
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
@@ -107,7 +152,9 @@ public class MainPanel extends JPanel implements ActionListener {
         jsonWriter = new JsonWriter(JSON_PATH);
 
         table = new CustomJTable(new TableModel(loadData()));
+        sorter = new TableRowSorter<>(new TableModel(loadData()));
         rightClickMenu = new JPopupMenu();
+        searchBar = new JTextField();
     }
 
     /*

@@ -17,11 +17,11 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
     private ArrayList<JComponent> validateFieldList;
     private JLabel amountLabel;
-    private JLabel labelLabel;
+    private JLabel descriptionLabel;
     private JLabel categoryLabel;
     private JLabel typeLabel;
     private JLabel dateLabel;
-    private JTextField labelField;
+    private JTextField descriptionField;
     private JTextField dateField;
     private JTextField amountField;
     private JComboBox<Object> categoryComboBox;
@@ -60,7 +60,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
         categoryLabel = new JLabel("  Category");
         typeLabel = new JLabel("  Type");
         dateLabel = new JLabel("  Date (yyyy-MM-dd)  ");
-        labelLabel = new JLabel("  Label");
+        descriptionLabel = new JLabel("  Description");
     }
 
     /*
@@ -69,13 +69,13 @@ public class AddItemDialog extends JDialog implements ItemListener {
      */
     private void addComponentsToPanes() {
         labelPane.add(typeLabel);
-        labelPane.add(labelLabel);
+        labelPane.add(descriptionLabel);
         labelPane.add(amountLabel);
         labelPane.add(dateLabel);
         labelPane.add(categoryLabel);
 
         fieldPane.add(typeComboBox);
-        fieldPane.add(labelField);
+        fieldPane.add(descriptionField);
         fieldPane.add(amountField);
         fieldPane.add(dateField);
         fieldPane.add(categoryComboBox);
@@ -87,8 +87,8 @@ public class AddItemDialog extends JDialog implements ItemListener {
      *          adds fields that need to be validated to validateFieldList
      */
     private void initializeComponents() {
-        labelField = new JTextField();
-        labelField.setName("Label");
+        descriptionField = new JTextField();
+        descriptionField.setName("Description");
         categoryComboBox = new JComboBox<>(IncomeItem.CATEGORIES.toArray());
         typeComboBox = new JComboBox<>(Item.ITEMS_TYPES.toArray());
         typeComboBox.addItemListener(this);
@@ -106,7 +106,7 @@ public class AddItemDialog extends JDialog implements ItemListener {
 
         verifier = new CustomVerifier();
         validateFieldList = new ArrayList<>();
-        validateFieldList.add(labelField);
+        validateFieldList.add(descriptionField);
         validateFieldList.add(amountField);
         validateFieldList.add(dateField);
 
@@ -166,10 +166,10 @@ public class AddItemDialog extends JDialog implements ItemListener {
     public Item getNewItem() {
         if (itemAdded) {
             if (Objects.equals(typeComboBox.getSelectedItem(), IncomeItem.CLASS_NAME)) {
-                return new IncomeItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                return new IncomeItem(descriptionField.getText(), Double.parseDouble(amountField.getText()),
                         LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
             } else if (Objects.equals(typeComboBox.getSelectedItem(), ExpenseItem.CLASS_NAME)) {
-                return new ExpenseItem(labelField.getText(), Double.parseDouble(amountField.getText()),
+                return new ExpenseItem(descriptionField.getText(), Double.parseDouble(amountField.getText()),
                         LocalDate.parse(dateField.getText()), (String) categoryComboBox.getSelectedItem());
             }
         }

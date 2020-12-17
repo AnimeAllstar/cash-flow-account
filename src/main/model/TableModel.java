@@ -7,7 +7,7 @@ import java.util.ArrayList;
 // represents a subclass of AbstractTableModel to be used as a model for a JTable
 public class TableModel extends AbstractTableModel {
 
-    public static final String[] COLUMN_NAMES = {"Label", "Amount", "Date", "Category", "Type"};
+    public static final String[] COLUMN_NAMES = {"Description", "Amount", "Date", "Category", "Type"};
     CashFlowAccount cashFlowAccount;
 
     /*
