@@ -43,6 +43,11 @@ public class MainPanel extends JPanel implements ActionListener {
         configureRightClickMenu();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: configures the SearchBar appearance
+     *          adds document listener for changes in searchBar value
+     */
     private void configureSearchBar() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,15 +56,15 @@ public class MainPanel extends JPanel implements ActionListener {
         searchBar.getDocument().addDocumentListener(
                 new DocumentListener() {
                     public void changedUpdate(DocumentEvent e) {
-                        updateSearch();
+                        updateSearchCriteria();
                     }
 
                     public void insertUpdate(DocumentEvent e) {
-                        updateSearch();
+                        updateSearchCriteria();
                     }
 
                     public void removeUpdate(DocumentEvent e) {
-                        updateSearch();
+                        updateSearchCriteria();
                     }
                 });
 
@@ -68,7 +73,11 @@ public class MainPanel extends JPanel implements ActionListener {
         this.add(panel, BorderLayout.SOUTH);
     }
 
-    private void updateSearch() {
+    /*
+     * MODIFIES: this
+     * EFFECTS: filters JTable for value entered in the searchBar
+     */
+    private void updateSearchCriteria() {
         RowFilter<TableModel, Object> rf;
         try {
             rf = RowFilter.regexFilter(searchBar.getText(), 0);
@@ -94,6 +103,7 @@ public class MainPanel extends JPanel implements ActionListener {
      * MODIFIES: this
      * EFFECTS: sets table model to existing data in the JSON file
      *          center aligns table content
+     *          removes search filter
      */
     public void revertChanges() {
         table.setModel(new TableModel(loadData()));
