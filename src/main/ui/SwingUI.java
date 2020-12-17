@@ -33,6 +33,7 @@ public class SwingUI implements ActionListener {
         frame.setJMenuBar(this.addMenuBar());
         frame.pack();
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     /*

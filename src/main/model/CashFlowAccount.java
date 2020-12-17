@@ -15,7 +15,7 @@ public class CashFlowAccount implements Writable {
     private final List<Item> itemList = new ArrayList<>();
 
     public List<Item> getItemList() {
-        return itemList;
+        return Collections.unmodifiableList(itemList);
     }
 
     /*
@@ -32,7 +32,7 @@ public class CashFlowAccount implements Writable {
                 tempList.add(elem);
             }
         }
-        return tempList;
+        return Collections.unmodifiableList(tempList);
     }
 
     // MODIFIES: this
