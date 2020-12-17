@@ -19,7 +19,7 @@ public class ExpenseItem extends Item {
     // zero-argument constructor
     // EFFECTS: passes default variables to this(String, double, LocalDate, String)
     public ExpenseItem() {
-        this(DEFAULT_LABEL, DEFAULT_AMOUNT, DEFAULT_DATE, DEFAULT_CATEGORY);
+        this(DEFAULT_DESCRIPTION, DEFAULT_AMOUNT, DEFAULT_DATE, DEFAULT_CATEGORY);
     }
 
     /*

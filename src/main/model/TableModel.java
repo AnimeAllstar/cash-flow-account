@@ -49,7 +49,7 @@ public class TableModel extends AbstractTableModel {
         Item item = cashFlowAccount.getItem(row);
         switch (col) {
             case 0:
-                return item.getLabel();
+                return item.getDescription();
             case 1:
                 return item.getAmount();
             case 2:
@@ -90,7 +90,7 @@ public class TableModel extends AbstractTableModel {
         Item item = cashFlowAccount.getItem(row);
         switch (col) {
             case 0:
-                item.setLabel((String) value);
+                item.setDescription((String) value);
                 break;
             case 1:
                 item.setAmount(Double.parseDouble((String) value));

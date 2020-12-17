@@ -197,9 +197,9 @@ public class ConsoleUI {
     //          adds item to cashFlowAccount
     //          updates json file
     private void addRecord(Item newItem) {
-        System.out.print("Enter Label : ");
+        System.out.print("Enter Description : ");
         sc.nextLine();
-        newItem.setLabel(sc.nextLine());
+        newItem.setDescription(sc.nextLine());
         System.out.print("Enter Amount : $ ");
         newItem.setAmount(sc.nextDouble());
         System.out.print("Enter Date (yyyy-mm-dd) : ");

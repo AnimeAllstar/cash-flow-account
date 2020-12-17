@@ -10,7 +10,7 @@ class ExpenseItemTest extends ItemTest {
 
     @BeforeEach
     public void runBefore() {
-        item = new ExpenseItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY);
+        item = new ExpenseItem(TEST_DESCRIPTION, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY);
     }
 
     @Test
@@ -20,7 +20,7 @@ class ExpenseItemTest extends ItemTest {
 
     @Test
     public void testCompareTo() {
-        super.testCompareTo(new ExpenseItem(TEST_LABEL, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY));
+        super.testCompareTo(new ExpenseItem(TEST_DESCRIPTION, TEST_AMOUNT, TEST_DATE, Item.DEFAULT_CATEGORY));
     }
 
     @Test

@@ -14,26 +14,26 @@ public abstract class Item implements Comparable<Item>, Writable {
     // default values for variables below (used by zero-argument constructors and objects in sub-classes and tests)
     public static final String DEFAULT_CATEGORY = "uncategorized";
     public static final LocalDate DEFAULT_DATE = LocalDate.now();
-    public static final String DEFAULT_LABEL = "New Item";
+    public static final String DEFAULT_DESCRIPTION = "New Item";
     public static final double DEFAULT_AMOUNT = 0;
 
     public static final List<String> ITEMS_TYPES = new ArrayList<>(Arrays.asList(IncomeItem.CLASS_NAME,
             ExpenseItem.CLASS_NAME));
 
-    private String label;               // description of the Item
+    private String description;         // description of the Item
     private double amount;              // value of Item (in dollars)
     private LocalDate date;             // date of transaction for the Item (format: yyyy-mm-dd)
     private String category;            // stores the category of the Item (eg: "Healthcare" or "Education")
 
     /*
-     * REQUIRES: label has a non-zero length
+     * REQUIRES: description has a non-zero length
      *           amount >= 0
      *           date in yyyy-MM-dd format
      *           category exists in "categories" variable in sub-class
-     * EFFECTS: creates a new Item with a label, amount, date and category
+     * EFFECTS: creates a new Item with a description, amount, date and category
      */
-    public Item(String label, double amount, LocalDate date, String category) {
-        this.label = label;
+    public Item(String description, double amount, LocalDate date, String category) {
+        this.description = description;
         this.amount = amount;
         this.date = date;
         this.category = category.toLowerCase();
@@ -101,24 +101,24 @@ public abstract class Item implements Comparable<Item>, Writable {
         }
     }
 
-    public String getLabel() {
-        return label;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return String.format("%-20s $ %-15.2f %-12s %-15s", label, amount, date.toString(), category);
+        return String.format("%-20s $ %-15.2f %-12s %-15s", description, amount, date.toString(), category);
     }
 
     @Override
     public JSONObject toJson(String type) {
         JSONObject json = new JSONObject();
         json.put("type", type);
-        json.put("label", getLabel());
+        json.put("description", getDescription());
         json.put("amount", getAmount());
         json.put("date", getDate());
         json.put("category", getCategory());

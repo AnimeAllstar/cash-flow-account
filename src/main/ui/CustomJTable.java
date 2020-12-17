@@ -26,7 +26,7 @@ public class CustomJTable extends JTable {
         JTextField textField = new JTextField();
         switch (column) {
             case 0:
-                textField.setName("Label");
+                textField.setName("Description");
                 return new CustomCellEditor(textField);
             case 1:
                 textField.setName("Amount");

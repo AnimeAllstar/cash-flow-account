@@ -37,7 +37,7 @@ public class TableModelTest {
     void testSetValueAt() {
         ExpenseItem testExpense = new ExpenseItem("name", 100, LocalDate.of(2000, Month.JANUARY, 1), "transport");
         model.addRow(new ExpenseItem());
-        model.setValueAt(testExpense.getLabel(), 0, 0);
+        model.setValueAt(testExpense.getDescription(), 0, 0);
         model.setValueAt(String.valueOf(testExpense.getAmount()), 0, 1);
         model.setValueAt(String.valueOf(testExpense.getDate()), 0, 2);
         model.setValueAt(testExpense.getCategory(), 0, 3);
@@ -49,7 +49,7 @@ public class TableModelTest {
     }
 
     void testGetValueAt(Item testItem) {
-        assertEquals(testItem.getLabel(), model.getValueAt(0, 0));
+        assertEquals(testItem.getDescription(), model.getValueAt(0, 0));
         assertEquals(testItem.getAmount(), model.getValueAt(0, 1));
         assertEquals(testItem.getDate(), LocalDate.parse((CharSequence) model.getValueAt(0, 2)));
         assertEquals(testItem.getCategory(), model.getValueAt(0, 3));

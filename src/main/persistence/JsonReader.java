@@ -69,7 +69,7 @@ public class JsonReader {
         } else {
             item = new ExpenseItem();
         }
-        item.setLabel(jsonObject.getString("label"));
+        item.setDescription(jsonObject.getString("description"));
         item.setAmount(jsonObject.getDouble("amount"));
         item.setDate(LocalDate.parse(jsonObject.getString("date")));
         item.setCategory(jsonObject.getString("category"));

@@ -1,95 +1,116 @@
 {
   "Items": [
     {
-      "date": "2020-10-10",
-      "amount": 2020,
-      "label": "Nuwdwd",
+      "date": "2077-10-10",
+      "amount": 1375,
+      "description": "ffsws",
       "type": "ExpenseItem",
       "category": "shopping"
     },
     {
-      "date": "2020-02-20",
-      "amount": 2020,
-      "label": "twtw",
+      "date": "2020-10-20",
+      "amount": 430,
+      "description": "fjrknfjrk",
       "type": "ExpenseItem",
-      "category": "food and dining"
+      "category": "education"
     },
     {
-      "date": "2000-12-01",
-      "amount": 33,
-      "label": "fvfvfv",
+      "date": "2020-10-10",
+      "amount": 3030,
+      "description": "lkmfk",
+      "type": "IncomeItem",
+      "category": "paycheck"
+    },
+    {
+      "date": "2020-10-10",
+      "amount": 2020,
+      "description": "lkfrmfk",
+      "type": "ExpenseItem",
+      "category": "bonus"
+    },
+    {
+      "date": "2020-10-10",
+      "amount": 2020,
+      "description": "lkmftk",
       "type": "IncomeItem",
       "category": "uncategorized"
     },
     {
-      "date": "2000-10-10",
-      "amount": 1375,
-      "label": "ffsws",
-      "type": "ExpenseItem",
-      "category": "shopping"
+      "date": "2020-10-10",
+      "amount": 220,
+      "description": "rfmk",
+      "type": "IncomeItem",
+      "category": "bonus"
+    },
+    {
+      "date": "2020-10-10",
+      "amount": 202,
+      "description": "klmrfmkm",
+      "type": "IncomeItem",
+      "category": "bonus"
     },
     {
       "date": "2000-10-10",
       "amount": 1000,
-      "label": "ddrf",
+      "description": "mj",
       "type": "ExpenseItem",
       "category": "entertainment"
     },
     {
       "date": "2000-10-10",
       "amount": 500,
-      "label": "dcd",
+      "description": "ol",
       "type": "IncomeItem",
       "category": "investment"
     },
     {
       "date": "2000-10-10",
       "amount": 500,
-      "label": "rffrf",
+      "description": "rffrf",
       "type": "ExpenseItem",
       "category": "healthcare"
     },
     {
       "date": "2000-10-10",
       "amount": 235,
-      "label": "tgrg",
+      "description": "tgrg",
       "type": "IncomeItem",
       "category": "uncategorized"
     },
     {
       "date": "2000-10-10",
       "amount": 202,
-      "label": "ded",
+      "description": "ded",
       "type": "IncomeItem",
       "category": "uncategorized"
     },
     {
       "date": "2000-10-10",
       "amount": 33,
-      "label": "r4r",
+      "description": "r4r",
       "type": "IncomeItem",
       "category": "bonus"
     },
     {
       "date": "2000-10-10",
       "amount": 33,
-      "label": "btr",
+      "description": "btr",
       "type": "IncomeItem",
       "category": "uncategorized"
     },
     {
-      "date": "0202-01-01",
-      "amount": 204,
-      "label": "y6y",
-      "type": "IncomeItem",
-      "category": "paycheck"
+      "date": "1000-10-10",
+      "amount": 330,
+      "description": "niuenciu",
+      "type": "ExpenseItem",
+      "category": "healthcare"
     },
     {
-      "date": "0200-10-01",
-      "amount": 2204,
-      "label": "flr,fl",
-      "type": "ExpenseItem",
-      "category": "education"
+      "date": "0202-01-01",
+      "amount": 204,
+      "description": "y6y",
+      "type": "IncomeItem",
+      "category": "paycheck"
     }
   ]
 }

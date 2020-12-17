@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // Adapted from JsonSerializationDemo
 public class JsonTest {
     protected void checkItem(String label, Double amount, String date, String category, Item item) {
-        assertEquals(label, item.getLabel());
+        assertEquals(label, item.getDescription());
         assertEquals(LocalDate.parse(date), item.getDate());
         assertEquals(amount, item.getAmount());
         assertEquals(category, item.getCategory());

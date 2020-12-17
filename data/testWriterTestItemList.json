@@ -3,14 +3,14 @@
     {
       "date": "2020-02-20",
       "amount": 20000,
-      "label": "tuition fees",
+      "description": "tuition fees",
       "type": "ExpenseItem",
       "category": "education"
     },
     {
       "date": "2015-10-20",
       "amount": 5000,
-      "label": "google stocks",
+      "description": "google stocks",
       "type": "IncomeItem",
       "category": "investment"
     }
