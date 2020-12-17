@@ -23,14 +23,14 @@ public class ExpenseItem extends Item {
     }
 
     /*
-     * REQUIRES: label has a non-zero length
+     * REQUIRES: description has a non-zero length
      *           amount >= 0
      *           date in yyyy-mm-dd format
      *           category exists in ExpenseItem.categories
      * EFFECTS: creates a new ExpenseItem by initializing the variables in the superclass
      */
-    public ExpenseItem(String label, double amount, LocalDate date, String category) {
-        super(label, amount, date, category);
+    public ExpenseItem(String description, double amount, LocalDate date, String category) {
+        super(description, amount, date, category);
     }
 
     @Override

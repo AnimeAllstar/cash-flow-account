@@ -23,14 +23,14 @@ public class IncomeItem extends Item {
     }
 
     /*
-     * REQUIRES: label has a non-zero length
+     * REQUIRES: description has a non-zero length
      *           amount >= 0
      *           date in yyyy-mm-dd format
      *           category exists in IncomeItem.categories
      * EFFECTS: creates a new IncomeItem by initializing the variables in the superclass
      */
-    public IncomeItem(String label, double amount, LocalDate date, String category) {
-        super(label, amount, date, category);
+    public IncomeItem(String description, double amount, LocalDate date, String category) {
+        super(description, amount, date, category);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// represents an Item having an label, date, category and amount (in dollars)
+// represents an Item having an description, date, category and amount (in dollars)
 public abstract class Item implements Comparable<Item>, Writable {
 
     // default values for variables below (used by zero-argument constructors and objects in sub-classes and tests)
