@@ -106,7 +106,9 @@ public class MainPanel extends JPanel implements ActionListener {
      *          removes search filter
      */
     public void revertChanges() {
-        table.setModel(new TableModel(loadData()));
+        TableModel tableModel = new TableModel(loadData());
+        table.setModel(tableModel);
+        sorter.setModel(tableModel);
         alignTableContents(SwingConstants.CENTER);
         searchBar.setText("");
     }
@@ -161,8 +163,9 @@ public class MainPanel extends JPanel implements ActionListener {
         jsonReader = new JsonReader(JSON_PATH);
         jsonWriter = new JsonWriter(JSON_PATH);
 
-        table = new CustomJTable(new TableModel(loadData()));
-        sorter = new TableRowSorter<>(new TableModel(loadData()));
+        TableModel tableModel = new TableModel(loadData());
+        table = new CustomJTable(tableModel);
+        sorter = new TableRowSorter<>(tableModel);
         rightClickMenu = new JPopupMenu();
         searchBar = new JTextField();
     }
