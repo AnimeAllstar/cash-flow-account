@@ -80,7 +80,7 @@ public class MainPanel extends JPanel implements ActionListener {
     private void updateSearchCriteria() {
         RowFilter<TableModel, Object> rf;
         try {
-            rf = RowFilter.regexFilter(searchBar.getText(), 0);
+            rf = RowFilter.regexFilter("(?i)" + searchBar.getText(), 0);
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
